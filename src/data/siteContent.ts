@@ -384,15 +384,15 @@ const companyData: DetailItem[] = [
   },
   {
     category: "company",
-    label: "Our Catalogue",
-    slug: "our-catalogue",
-    description: "Browse the complete REU equipment and services catalogue.",
+    label: "Technical Articles",
+    slug: "technical-articles",
+    description: "Insights and notes from REU engineers.",
     summary:
-      "Flip through our latest REU catalogue to explore pressure control equipment, gas handling skids, automation services, and reference installations in a single, shareable document.",
+      "Application notes and upgrade guides that help plant teams modernize gas, air, safety and process control infrastructure with confidence.",
     highlights: [
-      "Consolidated product and services overview",
-      "Specification snapshots for major assemblies",
-      "Contact information and project references",
+      "Downloadable whitepapers and notes",
+      "Case studies from real installations",
+      "Pointers for audits and compliance",
     ],
   },
   {
@@ -460,14 +460,14 @@ export const companyColumns: MenuColumn[] = [
     links: [{ label: "Quality Assurance", href: toHref("company", "quality-assurance") }],
   },
   {
-    heading: "Our Catalogue",
-    links: [{ label: "Our Catalogue", href: toHref("company", "our-catalogue") }],
+    heading: "Resources",
+    links: [
+      { label: "Our Catalogue", href: "/reu_catalogue/REU%20catlogue.pdf" },
+    ],
   },
   {
     heading: "News & Event",
-    links: [
-      { label: "Events", href: toHref("company", "events") },
-    ],
+    links: [{ label: "Events", href: toHref("company", "events") }],
   },
 ];
 
