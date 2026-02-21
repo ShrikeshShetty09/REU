@@ -1,19 +1,18 @@
 import Link from "next/link";
 import { companyColumns, detailContent, getRelatedByCategory } from "@/data/siteContent";
 
-const leadership = detailContent["leadership-team"];
-const partners = detailContent["partners"];
+const aboutUs = detailContent["about-us"];
 
 export default function CompanyPage() {
-  const insights = getRelatedByCategory("company", "leadership-team");
+  const insights = getRelatedByCategory("company", "about-us");
 
   return (
     <main className="space-y-16 pb-20 pt-16">
       <section className="mx-auto max-w-6xl rounded-[36px] border border-white/40 bg-white/85 px-6 py-12 shadow-[0_30px_120px_-60px_rgba(122,2,142,.6)]">
         <div className="space-y-6">
           <p className="text-xs uppercase tracking-[0.4em] text-[#a605c7]">Company</p>
-          <h1 className="text-4xl font-bold text-[#360236]">REU Engineering and LLP Leadership & Culture</h1>
-          <p className="text-lg text-foreground/75">{leadership?.summary}</p>
+          <h1 className="text-4xl font-bold text-[#360236]">About REU Engineering and LLP</h1>
+          <p className="text-lg text-foreground/75">{aboutUs?.summary}</p>
         </div>
       </section>
 
@@ -32,14 +31,6 @@ export default function CompanyPage() {
             </ul>
           </div>
         ))}
-      </section>
-
-      <section className="mx-auto max-w-6xl space-y-6 px-6">
-        <div className="rounded-[32px] border border-white/50 bg-gradient-to-br from-white via-[#ffe9fe] to-[#f8e2ff] p-8 shadow">
-          <p className="text-sm uppercase tracking-[0.4em] text-[#a605c7]">Partners</p>
-          <h2 className="text-3xl font-bold text-[#360236]">{partners?.label}</h2>
-          <p className="mt-3 text-base text-foreground/75">{partners?.summary}</p>
-        </div>
       </section>
 
       <section className="mx-auto max-w-6xl space-y-6 px-6">

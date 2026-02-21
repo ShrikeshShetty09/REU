@@ -40,7 +40,7 @@ const MegaMenu = ({ item }: { item: MenuNavItem }) => {
             <div className="space-y-2 text-sm">
               {column.links.map((link) => (
                 <Link
-                  key={link.href}
+                  key={`${column.heading}-${link.label}-${link.href}`}
                   href={link.href}
                   className="block rounded-xl border border-transparent px-3 py-2 transition hover:border-white/40 hover:bg-white/10"
                 >
@@ -60,10 +60,9 @@ const MegaMenu = ({ item }: { item: MenuNavItem }) => {
   return (
     <div className="grid gap-4 md:grid-cols-3">
       {item.cards.map((card) => (
-        <Link
+        <div
           key={card.href}
-          href={card.href}
-          className="group overflow-hidden rounded-3xl border border-white/40 bg-white/40 shadow-md transition hover:-translate-y-1"
+          className="group cursor-default overflow-hidden rounded-3xl border border-white/40 bg-white/40 shadow-md"
         >
           <div className="relative h-36 w-full overflow-hidden">
             <Image
@@ -78,7 +77,7 @@ const MegaMenu = ({ item }: { item: MenuNavItem }) => {
             <p className="font-semibold text-[#5d075f]">{card.label}</p>
             <p className="text-sm text-foreground/70">{card.description}</p>
           </div>
-        </Link>
+        </div>
       ))}
     </div>
   );
@@ -87,6 +86,40 @@ const MegaMenu = ({ item }: { item: MenuNavItem }) => {
 export const NavBar = () => {
   const pathname = usePathname();
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [openMobileSection, setOpenMobileSection] = useState<string | null>(null);
+
+  const handleSearch = async (query: string) => {
+    setSearchQuery(query);
+    
+    if (query.trim() === "") {
+      setSearchResults([]);
+      return;
+    }
+
+    // Simple search implementation - you can enhance this with actual search logic
+    try {
+      // This is a placeholder - implement actual search based on your needs
+      const mockResults = [
+        { title: "Pressure Reducing Systems", href: "/products/upstream-pressure-control-valve" },
+        { title: "Gas Detection System", href: "/products/gas-detection-system" },
+        { title: "Safety Valves", href: "/products/safety-valves" },
+        { title: "Service & Support", href: "/service-support" },
+        { title: "About Us", href: "/company/about-us" },
+        { title: "Contact", href: "/contact" },
+      ].filter(item => 
+        item.title.toLowerCase().includes(query.toLowerCase())
+      );
+
+      setSearchResults(mockResults);
+    } catch (error) {
+      console.error("Search error:", error);
+      setSearchResults([]);
+    }
+  };
 
   const currentMenu = useMemo(() => {
     if (!activeMenu) return null;
@@ -100,31 +133,61 @@ export const NavBar = () => {
     <div className="sticky top-0 z-50 border-b border-white/40 bg-white/80 text-sm text-foreground/90 backdrop-blur">
       <div className="hidden border-b border-white/40 bg-gradient-to-r from-[#a605c7] to-[#5d075f] px-6 py-2 text-xs text-white md:block">
         <div className="mx-auto flex max-w-6xl items-center justify-between">
-          <p className="tracking-[0.3em] uppercase">Registered LLP • Incorporated 28 May 2015 • LLPIN AAE-0508</p>
-          <div className="flex gap-6">
+          <div className="flex items-center gap-4">
             <a href="tel:+919987092470" className="hover:underline">
               +91 99870 92470
             </a>
-            <a href="mailto:rahulukey2004@gmail.com" className="hover:underline">
-              rahulukey2004@gmail.com
+            <span> </span>
+            <a href="mailto:rahulukey@reu.co.in" className="hover:underline">
+              rahulukey@reu.co.in
             </a>
           </div>
+          <a
+            href="https://www.youtube.com/@rahulukey1"
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center gap-2 hover:text-[#ffe5ff]"
+          >
+            <span className="sr-only">REU YouTube channel</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              className="h-5 w-5 fill-current"
+            >
+              <path d="M21.8 8.001a2.753 2.753 0 0 0-1.94-1.948C18.27 5.6 12 5.6 12 5.6s-6.27 0-7.86.453A2.753 2.753 0 0 0 2.2 8.001 28.59 28.59 0 0 0 1.75 12a28.59 28.59 0 0 0 .45 3.999 2.753 2.753 0 0 0 1.94 1.948C5.73 18.4 12 18.4 12 18.4s6.27 0 7.86-.453a2.753 2.753 0 0 0 1.94-1.948A28.59 28.59 0 0 0 22.25 12a28.59 28.59 0 0 0-.45-3.999ZM10.4 14.6V9.4L14.8 12Z" />
+            </svg>
+          </a>
         </div>
       </div>
       <div
-        className="mx-auto flex max-w-6xl flex-col gap-4 px-6 py-4 md:flex-row md:items-center md:justify-between"
-        onMouseLeave={() => setActiveMenu(null)}
+        className="flex w-full flex-col gap-4 px-6 py-4 md:flex-row md:items-center md:justify-start"
+        onMouseLeave={() => {
+          setActiveMenu(null);
+          setIsSearchOpen(false);
+        }}
       >
-        <div className="flex items-center gap-3">
-          <div className="relative h-14 w-14 overflow-hidden ">
-            <Image src="/images/reu_logo/logo.png" alt={brandInitials} fill sizes="56px" className="object-contain" />
+        <div className="flex items-center justify-between  md:justify-start">
+          <div className="relative h-15 w-38 overflow-hidden">
+            <Image src="/images/reu_logo/logo.png" alt={brandInitials} fill sizes="96px" className="object-contain" />
           </div>
           <div>
-            <p className="text-xs uppercase tracking-[0.4em] text-foreground/60">Incorporated 2015</p>
-            <p className="text-lg font-semibold">REU Engineering and LLP</p>
+            <p className="text-lg font-semibold leading-tight">REU ENGINEERING & CONSULTING LLP</p>
           </div>
+          {/* Mobile hamburger */}
+          <button
+            type="button"
+            className="ml-auto flex h-9 w-9 flex-col items-center justify-center gap-[5px] rounded-full border border-foreground/40 md:hidden"
+            onClick={() => setIsMobileMenuOpen((open) => !open)}
+            aria-label="Toggle navigation menu"
+          >
+            <span className="block h-[2px] w-4 rounded bg-black" />
+            <span className="block h-[2px] w-4 rounded bg-black" />
+            <span className="block h-[2px] w-4 rounded bg-black" />
+            <span className="sr-only">Menu</span>
+          </button>
         </div>
-        <nav className="flex flex-1 flex-wrap items-center justify-end gap-3 text-[0.95rem] font-semibold uppercase tracking-wide">
+        {/* Desktop navigation */}
+        <nav className="hidden flex-1 items-center justify-start gap-2 text-[0.85rem] font-semibold uppercase tracking-wide md:ml-10 md:flex md:flex-nowrap">
           {navItems.map((item) => {
             const isActive = item.href ? pathname === item.href : false;
             const hasMenu = isMenuNavItem(item);
@@ -133,7 +196,9 @@ export const NavBar = () => {
                 {item.href ? (
                   <Link
                     href={item.href}
-                    className={`rounded-full px-4 py-2 transition ${
+                    onMouseEnter={() => setActiveMenu(null)}
+                    style={isActive ? { color: "#ffffff" } : undefined}
+                    className={`rounded-full px-3 py-1.5 whitespace-nowrap transition ${
                       isActive
                         ? "bg-gradient-to-r from-[#a605c7] to-[#5d075f] text-white"
                         : "text-foreground/80 hover:bg-white/70 hover:text-foreground"
@@ -144,9 +209,10 @@ export const NavBar = () => {
                 ) : (
                   <button
                     onMouseEnter={() => setActiveMenu(item.label)}
-                    className="rounded-full px-4 py-2 text-foreground/80 transition hover:bg-white/70 hover:text-foreground"
+                    className="flex items-center gap-1 rounded-full px-3 py-1.5 whitespace-nowrap text-foreground/80 transition hover:bg-white/70 hover:text-foreground"
                   >
-                    {item.label}
+                    <span>{item.label}</span>
+                    <span className="text-[0.6rem] align-middle">▼</span>
                   </button>
                 )}
                 {hasMenu && (
@@ -158,15 +224,162 @@ export const NavBar = () => {
               </div>
             );
           })}
-          <button className="rounded-full border border-[#a605c7]/40 px-4 py-2 text-[#a605c7] transition hover:bg-[#a605c7] hover:text-white">
-            <span className="sr-only">Search</span>
-            <SearchIcon />
-          </button>
+          <div className="relative">
+            <button
+              onClick={() => setIsSearchOpen(!isSearchOpen)}
+              className="rounded-full border border-[#a605c7]/40 px-4 py-2 text-[#a605c7] transition hover:bg-[#a605c7] hover:text-white"
+            >
+              <span className="sr-only">Search</span>
+              <SearchIcon />
+            </button>
+            
+            {/* Search Dropdown */}
+            {isSearchOpen && (
+              <div className="absolute right-0 top-full mt-2 w-80 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                <div className="p-4">
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => handleSearch(e.target.value)}
+                    placeholder="Search entire website..."
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    autoFocus
+                  />
+                  
+                  {/* Search Results */}
+                  {searchResults.length > 0 && (
+                    <div className="mt-3 max-h-60 overflow-y-auto">
+                      <p className="text-xs font-semibold text-gray-600 mb-2">Search Results:</p>
+                      {searchResults.map((result, index) => (
+                        <Link
+                          key={index}
+                          href={result.href}
+                          className="block px-3 py-2 hover:bg-gray-100 rounded-md transition-colors"
+                        >
+                          <p className="text-sm font-medium text-gray-900">{result.title}</p>
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                  
+                  {searchQuery && searchResults.length === 0 && (
+                    <p className="mt-3 text-sm text-gray-500">No results found for "{searchQuery}"</p>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
         </nav>
       </div>
+      {/* Mobile menu */}
+      {isMobileMenuOpen && (
+        <div className="border-t border-white/60 bg-white/95 px-6 pb-4 pt-2 text-sm shadow-md md:hidden">
+          <div className="mx-auto max-w-6xl space-y-3">
+            {navItems.map((item) => {
+              const hasMenu = isMenuNavItem(item);
+              const isActive = item.href ? pathname === item.href : false;
+
+              if (item.href) {
+                return (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    style={isActive ? { color: "#ffffff" } : undefined}
+                    className={`block rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-wide ${
+                      isActive
+                        ? "bg-gradient-to-r from-[#a605c7] to-[#5d075f] text-white"
+                        : "text-foreground/80 hover:bg-white/80 hover:text-foreground"
+                    }`}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              }
+
+              if (hasMenu && item.menuType === "columns") {
+                return (
+                  <div key={item.label} className="space-y-1">
+                    <button
+                      type="button"
+                      className="flex w-full items-center justify-between rounded-full px-3 py-2 text-[0.7rem] font-semibold uppercase tracking-[0.25em] text-foreground/70"
+                      onClick={() =>
+                        setOpenMobileSection((prev) => (prev === item.label ? null : item.label))
+                      }
+                    >
+                      <span>{item.label}</span>
+                      <span className="text-xs">{openMobileSection === item.label ? "−" : "+"}</span>
+                    </button>
+                    {openMobileSection === item.label && (
+                      <div className="space-y-1 pl-3">
+                        {item.columns.flatMap((column) =>
+                          column.links.map((link) => (
+                            <Link
+                              key={`${column.heading}-${link.label}-${link.href}-mobile`}
+                              href={link.href}
+                              className="block rounded-full px-4 py-1.5 text-xs text-foreground/80 hover:bg-white/80 hover:text-foreground"
+                              onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                              {link.label}
+                            </Link>
+                          ))
+                        )}
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+
+              if (hasMenu && item.menuType === "cards") {
+                return (
+                  <div key={item.label} className="space-y-1">
+                    <button
+                      type="button"
+                      className="flex w-full items-center justify-between rounded-full px-3 py-2 text-[0.7rem] font-semibold uppercase tracking-[0.25em] text-foreground/70"
+                      onClick={() =>
+                        setOpenMobileSection((prev) => (prev === item.label ? null : item.label))
+                      }
+                    >
+                      <span>{item.label}</span>
+                      <span className="text-xs">{openMobileSection === item.label ? "−" : "+"}</span>
+                    </button>
+                    {openMobileSection === item.label && (
+                      <div className="space-y-2 pl-2">
+                        {item.cards.map((card) => (
+                          <div
+                            key={`${card.href}-mobile`}
+                            className="flex items-center gap-3 rounded-2xl px-3 py-2 text-xs text-foreground/80"
+                          >
+                            <div className="relative h-10 w-14 flex-shrink-0 overflow-hidden rounded-xl border border-white/60 bg-white">
+                              <Image
+                                src={card.image}
+                                alt={card.label}
+                                fill
+                                className="object-cover"
+                              />
+                            </div>
+                            <div className="flex-1">
+                              <p className="font-semibold">{card.label}</p>
+                              {card.description && (
+                                <p className="text-[0.7rem] text-foreground/70">{card.description}</p>
+                              )}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+
+              return null;
+            })}
+          </div>
+        </div>
+      )}
       {currentMenu && (
         <div
-          className="border-t border-white/50 bg-gradient-to-b from-[#fff0ff] to-[#f9e5ff] px-6 py-8 shadow-lg"
+          className="relative z-40 border-t border-white/50 bg-gradient-to-b from-[#fff0ff] to-[#f9e5ff] px-6 py-8 shadow-lg"
           onMouseLeave={() => setActiveMenu(null)}
           onMouseEnter={() => setActiveMenu(currentMenu.label)}
         >

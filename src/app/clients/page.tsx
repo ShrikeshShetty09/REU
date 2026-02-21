@@ -1,5 +1,25 @@
 import Image from "next/image";
-import { additionalClients, featuredClients } from "@/data/clients";
+
+type Client = {
+  name: string;
+  logo?: string;
+};
+
+const clients: Client[] = [
+  { name: "Amptronics Techno Pvt. Ltd.", logo: "/images/client_logo/Amprotnics_Techno_Pvt_Ltd.png" },
+  { name: "Gatik synthesis LLP", logo: "/images/client_logo/Gatik synthesis LLP.png" },
+  { name: "HikalLTD", logo: "/images/client_logo/HikalLTD.png" },
+  { name: "Intas Pharmaceuticals Limited", logo: "/images/client_logo/intas-pharmaceuticals.png" },
+  { name: "Ongc", logo: "/images/client_logo/oil-and-natural-gasoration.png" },
+  { name: "Mylan Laboratories", logo: "/images/client_logo/Mylan Laboratories.png" },
+  { name: "LupinLtd", logo: "/images/client_logo/LupinLtd.png" },
+  { name: "SH Kelkar and CompanyLtd", logo: "/images/client_logo/SH Kelkar and CompanyLtd.png" },
+  { name: "SV Lab PvtLtd", logo: "/images/client_logo/SV Lab PvtLtd.png" },
+  { name: "Symed Labs Pvt.Ltd", logo: "/images/client_logo/symed_labs_limited_logo__1_-removebg-preview.png" },
+  { name: "Zydus LifeScience Limited", logo: "/images/client_logo/Zydus_Lifesciences-removebg-preview.png" },
+  { name: "ViyashLife Sciences PvtLtd", logo: "/images/client_logo/viyash-life-sciences-pvt-ltd.png" },
+  { name: "Schreiber Dynamics pvt ltd", logo: "/images/client_logo/schreiber-logo.png" },
+];
 
 const getInitials = (name: string) => {
   const letters = name.match(/\b[A-Z0-9]/g);
@@ -7,47 +27,19 @@ const getInitials = (name: string) => {
   return letters.slice(0, 2).join("");
 };
 
-const getCircleStyle = (index: number) => {
-  const hue = (index * 47) % 360;
-  const start = `hsl(${hue} 85% 92%)`;
-  const end = `hsl(${(hue + 20) % 360} 70% 82%)`;
-  return {
-    background: `linear-gradient(135deg, ${start}, ${end})`,
-    color: `hsl(${hue} 35% 30%)`,
-  };
-};
-
 export default function ClientsPage() {
-  const totalClients = featuredClients.length + additionalClients.length;
-  const supportingClients = additionalClients.slice(0, 100);
-
   return (
-    <main className="space-y-16 pb-24 pt-16">
-      <section className="mx-auto max-w-6xl overflow-hidden rounded-[36px] border border-white/40 bg-white/90 shadow-[0_30px_120px_-60px_rgba(122,2,142,.6)]">
-        <div className="bg-gradient-to-r from-[#045de9] to-[#a605c7] px-6 py-8 text-white">
-          <p className="text-xs uppercase tracking-[0.6em]">Our Clients</p>
-          <h1 className="mt-3 text-4xl font-bold">Trusted by process leaders across India</h1>
-          <p className="mt-3 max-w-3xl text-sm text-white/80">
-            Clients are the most important entities in any domain. Inspired by the reference experience, we showcase the
-            organizations that count on REU Engineering and LLP (built on the legacy of Nirmal Industrial Controls) for
-            engineered products and services across manufacturing, pharma, energy, and infrastructure.
-          </p>
+    <main className="pb-24 pt-16">
+      <section className="mx-auto max-w-6xl space-y-8 px-6">
+        <div className="space-y-3 text-center">
+          <p className="text-xs uppercase tracking-[0.5em] text-[#a605c7]">Our Clients</p>
+          <h1 className="text-3xl font-bold text-[#360236] sm:text-4xl">Flagship clients</h1>
         </div>
-        <div className="px-6 pb-8 pt-10">
-          <p className="text-center text-sm uppercase tracking-[0.4em] text-[#a605c7]">{totalClients}+ organisations</p>
-        </div>
-      </section>
 
-      <section className="mx-auto max-w-6xl space-y-6 px-6">
-        <div className="rounded-[36px] border border-white/40 bg-white/95 p-8 shadow">
-          <div className="mb-6 flex flex-col gap-2 text-center">
-            <p className="text-xs uppercase tracking-[0.5em] text-[#a605c7]">Flagship & strategic partners</p>
-            <p className="text-lg text-foreground/70">Logos provided by the client, showcased exactly as requested.</p>
-          </div>
-          <div className="grid gap-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-            {featuredClients.map((client, index) => {
+        <div className="rounded-[32px] border border-white/40 bg-white/95 p-6 shadow">
+          <div className="grid gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+            {clients.map((client, index) => {
               const initials = getInitials(client.name);
-              const circleStyle = getCircleStyle(index);
               return (
                 <div key={client.name} className="flex flex-col items-center gap-3 text-center">
                   {client.logo ? (
@@ -61,10 +53,7 @@ export default function ClientsPage() {
                       />
                     </div>
                   ) : (
-                    <div
-                      className="flex h-20 w-20 items-center justify-center rounded-full border border-white/60 text-lg font-semibold shadow-md"
-                      style={circleStyle}
-                    >
+                    <div className="flex h-20 w-20 items-center justify-center rounded-full border border-white/60 bg-[#f5e6ff] text-lg font-semibold text-[#4a014e] shadow-md">
                       {initials}
                     </div>
                   )}
@@ -74,28 +63,8 @@ export default function ClientsPage() {
             })}
           </div>
         </div>
-      </section>
 
-      <section className="mx-auto max-w-6xl space-y-6 px-6">
-        <div className="rounded-[36px] border border-white/40 bg-gradient-to-br from-white via-[#ffe9fe] to-[#f8e2ff] p-8 shadow-xl">
-          <div className="flex flex-col gap-2 text-center">
-            <p className="text-xs uppercase tracking-[0.5em] text-[#a605c7]">And 100+ more clients</p>
-            <p className="text-base text-foreground/70">
-              Additional long-term relationships across pharma, speciality chemicals, energy, and public sector enterprises.
-            </p>
-          </div>
-          <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-            {[0, 1, 2, 3].map((col) => (
-              <ul key={col} className="space-y-3 text-sm text-foreground/80">
-                {supportingClients
-                  .filter((_, idx) => idx % 4 === col)
-                  .map((client) => (
-                    <li key={client.name}>• {client.name}</li>
-                  ))}
-              </ul>
-            ))}
-          </div>
-        </div>
+        <p className="mt-6 text-center text-sm text-foreground/70">+114 more clients across India</p>
       </section>
     </main>
   );

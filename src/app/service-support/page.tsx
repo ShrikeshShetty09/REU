@@ -1,133 +1,181 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
-const supportPrograms = [
+const supportOptions = [
   {
-    title: "Annual Maintenance Contracts",
-    description:
-      "Scheduled inspections, calibration, and replacement part coverage to keep blanketing, regulating, and safety systems healthy.",
+    id: "product-enquiry",
+    title: "Product Enquiry",
+    description: "Have questions about our products?",
+    icon: "🔍",
+    gradient: "from-blue-500 to-purple-600",
   },
   {
-    title: "Emergency Response",
-    description:
-      "24/7 on-call engineers for troubleshooting, valve overhaul, and restoration after shutdowns or trips.",
+    id: "customer-feedback",
+    title: "Customer Feedback",
+    description: "Your feedback is invaluable to us!",
+    icon: "💬",
+    gradient: "from-green-500 to-teal-600",
   },
   {
-    title: "Retrofit & Upgrade",
-    description:
-      "Digitization, telemetry, and control retrofits that extend lifecycle while meeting new compliance norms.",
-  },
-  {
-    title: "Training & Certification",
-    description:
-      "Operator and maintenance crew workshops covering operation, diagnostics, and safe intervention on REU systems.",
-  },
-];
-
-const serviceSteps = [
-  "Site assessment & data gathering",
-  "Engineering scope definition",
-  "Execution with OEM spares",
-  "Performance validation & reporting",
-];
-
-const resources = [
-  {
-    label: "Service Catalogue",
-    href: "/products/city-gate-station",
-  },
-  {
-    label: "Quality Assurance",
-    href: "/company/quality-assurance",
-  },
-  {
-    label: "Industrial Automation",
-    href: "/industrial-automation",
+    id: "service-request",
+    title: "Service Request",
+    description: "Need assistance with one of our services?",
+    icon: "🛠️",
+    gradient: "from-orange-500 to-red-600",
   },
 ];
 
 export default function ServiceSupportPage() {
+  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
+
   return (
-    <main className="space-y-16 pb-24 pt-16">
-      <section className="mx-auto max-w-6xl rounded-[36px] border border-white/40 bg-white/85 px-6 py-12 shadow-[0_30px_120px_-60px_rgba(122,2,142,.6)]">
-        <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
-          <div className="space-y-6">
-            <p className="text-xs uppercase tracking-[0.5em] text-[#a605c7]">Service & Support</p>
-            <h1 className="text-4xl font-bold text-[#360236]">Lifecycle care for critical pressure and utility assets</h1>
-            <p className="text-lg text-foreground/80">
-              Our service teams span India and the Middle East, offering OEM-backed support for tank blanketing valves,
-              metering stations, hydrogen skids, safety valves, and automation infrastructure.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <Link
-                href="/contact"
-                className="rounded-full bg-gradient-to-r from-[#ff96ff] to-[#a605c7] px-6 py-3 text-sm font-semibold text-white shadow-lg"
-              >
-                Book a Service Visit
-              </Link>
-              <Link
-                href="/company/events"
-                className="rounded-full border border-[#a605c7]/40 px-6 py-3 text-sm font-semibold text-[#a605c7]"
-              >
-                Latest Updates
-              </Link>
+    <div className="min-h-screen flex flex-col">
+      {/* Sticky Background */}
+      <div className="fixed inset-0 z-0">
+        <div
+          className="w-full h-full bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: "url('/images/serviceandsupportbg.png')",
+          }}
+        />
+        <div className="absolute inset-0 bg-black/40" />
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 flex-1 flex flex-col">
+        {/* Hero Section */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="flex-1 flex items-center justify-center px-6 py-24"
+        >
+          <div className="text-center max-w-4xl mx-auto">
+            <motion.h1
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-5xl md:text-7xl font-bold text-white mb-6 drop-shadow-2xl"
+            >
+              Looking for Help?
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="text-xl md:text-2xl text-white/90 mb-16 drop-shadow-lg"
+            >
+              We're Here for You
+              <br />
+              <span className="text-lg md:text-xl text-white/80">
+                At REU Engineering, your satisfaction is our priority. Reach out anytime—we're always ready to help!
+              </span>
+            </motion.p>
+
+            {/* Interactive Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-start">
+              {supportOptions.map((option, index) => (
+                <motion.div
+                  key={option.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
+                  onMouseEnter={() => setHoveredCard(option.id)}
+                  onMouseLeave={() => setHoveredCard(null)}
+                  className={`relative group ${
+                    index === 0 ? '-mt-8' : index === 2 ? '-mt-8' : 'mt-0'
+                  }`}
+                >
+                  <motion.div
+                    whileHover={{ scale: 1.05, y: -5 }}
+                    whileTap={{ scale: 0.98 }}
+                    className={`relative overflow-hidden rounded-3xl bg-white/10 backdrop-blur-md border border-white/20 p-8 cursor-pointer transition-all duration-300 ${
+                      hoveredCard === option.id ? "shadow-2xl" : "shadow-lg"
+                    }`}
+                  >
+                    {/* Gradient Background */}
+                    <div className={`absolute inset-0 bg-gradient-to-br ${option.gradient} opacity-20`} />
+                    
+                    {/* Content */}
+                    <div className="relative z-10">
+                      <motion.div
+                        animate={{
+                          rotate: hoveredCard === option.id ? 360 : 0,
+                          scale: hoveredCard === option.id ? 1.2 : 1,
+                        }}
+                        transition={{ duration: 0.6 }}
+                        className="text-5xl mb-4 text-center"
+                      >
+                        {option.icon}
+                      </motion.div>
+                      
+                      <h3 className="text-2xl font-bold text-white mb-3 text-center">
+                        {option.title}
+                      </h3>
+                      
+                      <p className="text-white/80 text-center mb-6">
+                        {option.description}
+                      </p>
+                      
+                      <Link href={`/service-support/${option.id}`}>
+                        <motion.div
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          className={`inline-block w-full py-3 px-6 rounded-full bg-gradient-to-r ${option.gradient} text-white font-semibold text-center shadow-lg`}
+                        >
+                          Click Here
+                        </motion.div>
+                      </Link>
+                    </div>
+
+                    {/* Hover Effect Overlay */}
+                    <motion.div
+                      className="absolute inset-0 bg-white/10 pointer-events-none"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: hoveredCard === option.id ? 1 : 0 }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  </motion.div>
+                </motion.div>
+              ))}
             </div>
           </div>
-          <div className="relative h-80 overflow-hidden rounded-[32px] border border-white/40">
-            <Image src="/images/team.jpg" alt="Service team" fill className="object-cover" />
-          </div>
-        </div>
-      </section>
+        </motion.div>
 
-      <section className="mx-auto max-w-6xl space-y-8 px-6">
-        <div className="grid gap-6 md:grid-cols-2">
-          {supportPrograms.map((program) => (
-            <div key={program.title} className="rounded-[28px] border border-[#f0d9ff] bg-white/95 p-6 shadow">
-              <p className="text-sm uppercase tracking-[0.4em] text-[#a605c7]">Program</p>
-              <h2 className="mt-2 text-2xl font-semibold text-[#360236]">{program.title}</h2>
-              <p className="mt-3 text-sm text-foreground/75">{program.description}</p>
+        {/* Services container */}
+        <section id="services" className="bg-black/60 px-6 pb-20 pt-10">
+          <div className="mx-auto flex max-w-6xl flex-col gap-6 rounded-[32px] border border-white/30 bg-black/40 p-8">
+            <div className="space-y-2 text-center text-white">
+              <p className="text-xs font-semibold uppercase tracking-[0.4em] text-[#ffb6ff]">Services</p>
+              <h2 className="text-2xl font-bold">Field and lifecycle services from REU</h2>
+              <p className="text-sm text-white/80">
+                Engage our teams for compressor and gas detection programs, from new supply to ongoing maintenance and
+                upgrades.
+              </p>
             </div>
-          ))}
-        </div>
-      </section>
 
-      <section className="mx-auto max-w-6xl space-y-8 px-6">
-        <div className="rounded-[32px] border border-white/50 bg-gradient-to-r from-[#fdf0ff] to-[#f8e5ff] p-8 shadow">
-          <p className="text-sm uppercase tracking-[0.4em] text-[#a605c7]">How we work</p>
-          <div className="mt-6 grid gap-4 md:grid-cols-4">
-            {serviceSteps.map((step, idx) => (
-              <div key={step} className="rounded-2xl border border-white/70 bg-white/90 p-4 text-center">
-                <p className="text-3xl font-bold text-[#a605c7]">{`0${idx + 1}`}</p>
-                <p className="mt-2 text-sm text-foreground/80">{step}</p>
+            <div className="grid gap-6 md:grid-cols-2">
+              <div className="space-y-3 rounded-[28px] border border-white/30 bg-white/10 p-6 text-sm text-white/90">
+                <h3 className="text-lg font-semibold">Compressor &amp; Supply</h3>
+                <p>
+                  Support covering compressor selection, supply and lifecycle care for air and gas systems, aligned to
+                  energy and reliability objectives.
+                </p>
               </div>
-            ))}
+              <div className="space-y-3 rounded-[28px] border border-white/30 bg-white/10 p-6 text-sm text-white/90">
+                <h3 className="text-lg font-semibold">Gas Detection System</h3>
+                <p>
+                  Fixed gas detection solutions including sensors, controllers and alarms with commissioning and
+                  ongoing calibration / AMC support.
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl grid gap-8 px-6 lg:grid-cols-[1.1fr,0.9fr] lg:items-center">
-        <div className="space-y-4">
-          <h2 className="text-3xl font-bold text-[#360236]">Download resources & service notes</h2>
-          <p className="text-base text-foreground/80">
-            Access QA protocols, instrumentation layouts, and preventive maintenance checklists curated by our global team.
-          </p>
-          <ul className="space-y-2 text-sm text-foreground/80">
-            {resources.map((resource) => (
-              <li key={resource.href}>
-                <Link href={resource.href} className="text-[#a605c7] hover:underline">
-                  {resource.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="rounded-[32px] border border-white/60 bg-white/90 p-6">
-          <p className="text-sm uppercase tracking-[0.4em] text-[#a605c7]">Need support?</p>
-          <h3 className="mt-3 text-2xl font-semibold text-[#360236]">+91 22 2839 3337</h3>
-          <p className="text-sm text-foreground/70">hello@reu-engineering.com</p>
-          <p className="mt-4 text-sm text-foreground/70">Plot A-62, Taloja MIDC, Navi Mumbai</p>
-        </div>
-      </section>
-    </main>
+        </section>
+      </div>
+    </div>
   );
 }

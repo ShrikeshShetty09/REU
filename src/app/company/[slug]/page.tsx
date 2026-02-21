@@ -25,7 +25,7 @@ export default function CompanyDetailPage({ params }: PageProps) {
       detail={detail}
       related={related}
       categoryLabel="Company"
-      backHref="/company/leadership-team"
+      backHref="/company/about-us"
     />
   );
 }

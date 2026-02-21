@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { heroStats } from "@/data/siteContent";
@@ -59,10 +59,10 @@ export const HeroSection = ({ customServices }: HeroSectionProps) => {
         eyebrow: "From Design to Commissioning",
         title: "Active LLP partner for pressure control & process solutions",
         description:
-          "Incorporated on 28 May 2015 (LLPIN AAE-0508) and headquartered in Kamothe, Navi Mumbai, we deliver custom-engineered gas handling, automation, and lifecycle programs for refineries, pharma majors, utilities, and EPC specialists across India.",
+          "REU is a leading supplier and service provider in the field of gas, air, safety, gas detection and process control systems such as DeltaV DCS and DeltaV MES, with strong focus on validation, mapping and lifecycle site support.",
         actions: [
           { label: "View Products", href: "/products/upstream-pressure-control-valve", variant: "primary" },
-          { label: "Our Story", href: "/company/leadership-team", variant: "secondary" },
+          { label: "Our Story", href: "/company/about-us", variant: "secondary" },
         ],
         showStats: true,
         overlayTone: "light",
@@ -126,6 +126,9 @@ export const HeroSection = ({ customServices }: HeroSectionProps) => {
     [sliderSide]
   );
 
+  const iframeRef = useRef<HTMLIFrameElement | null>(null);
+  const playerRef = useRef<any>(null);
+
   useEffect(() => {
     const timer = setInterval(() => {
       setActiveSlide((prev) => (prev + 1) % totalSlides);
@@ -153,6 +156,70 @@ export const HeroSection = ({ customServices }: HeroSectionProps) => {
     }, sliderSide.interval ?? 2600);
     return () => clearInterval(timer);
   }, [sliderSide, sideSliderImages]);
+
+  // Initialize YouTube Player API for the hero video iframe
+  useEffect(() => {
+    if (!iframeRef.current) return;
+
+    const setupPlayer = () => {
+      const win = window as any;
+      if (win.YT && win.YT.Player) {
+        playerRef.current = new win.YT.Player(iframeRef.current);
+      }
+    };
+
+    const win = window as any;
+    if (win.YT && win.YT.Player) {
+      setupPlayer();
+      return;
+    }
+
+    // Load YouTube IFrame API script once
+    const scriptId = "youtube-iframe-api";
+    if (!document.getElementById(scriptId)) {
+      const tag = document.createElement("script");
+      tag.id = scriptId;
+      tag.src = "https://www.youtube.com/iframe_api";
+      const firstScriptTag = document.getElementsByTagName("script")[0];
+      if (firstScriptTag && firstScriptTag.parentNode) {
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+      } else {
+        document.body.appendChild(tag);
+      }
+    }
+
+    win.onYouTubeIframeAPIReady = () => {
+      setupPlayer();
+    };
+  }, []);
+
+  // Pause/play the video automatically based on hero visibility
+  useEffect(() => {
+    if (!iframeRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting && playerRef.current?.pauseVideo) {
+            // When the hero is no longer sufficiently visible, pause the video
+            playerRef.current.pauseVideo();
+          } else if (entry.isIntersecting && playerRef.current?.playVideo) {
+            // When the hero comes back into view, resume playback
+            playerRef.current.playVideo();
+          }
+        });
+      },
+      {
+        threshold: 0.25,
+      }
+    );
+
+    observer.observe(iframeRef.current);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   const isLightOverlay = (currentSlide.overlayTone ?? "light") === "light";
   const textBase = isLightOverlay ? "text-white" : "text-[#2b0030]";
@@ -271,53 +338,16 @@ export const HeroSection = ({ customServices }: HeroSectionProps) => {
   };
 
   return (
-    <section className="relative isolate w-full overflow-hidden rounded-[32px] border border-white/20 bg-black/80 text-white">
-      <div className="absolute inset-0 -z-10">
-        {backgroundImagesSafe.length > 0 && (
-          <Image
-            key={`${currentSlide.id}-${backgroundFrame}`}
-            src={backgroundImagesSafe[backgroundFrame % backgroundImagesSafe.length]}
-            alt={`${currentSlide.title} visual`}
-            fill
-            priority={activeSlide === 0}
-            className="object-cover"
-          />
-        )}
-        <div
-          className={`absolute inset-0 bg-gradient-to-r ${
-            isLightOverlay
-              ? "from-black/80 via-black/60 to-black/20"
-              : "from-white/90 via-white/70 to-white/20"
-          }`}
+    <section className="relative isolate w-full overflow-hidden rounded-[32px] border border-white/20">
+      <div className="relative w-full" style={{ paddingTop: "45%" }}>
+        <iframe
+          className="absolute inset-0 h-full w-full"
+          ref={iframeRef}
+          src="https://www.youtube.com/embed/PEMZdTYtxC0?autoplay=1&controls=0&rel=0&showinfo=0&modestbranding=1&loop=1&playlist=PEMZdTYtxC0&enablejsapi=1"
+          title="REU Equipment Video"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
         />
-      </div>
-
-      <div className="relative z-10 mx-auto flex min-h-[80vh] w-full max-w-6xl flex-col gap-10 px-6 py-16 lg:flex-row lg:items-center">
-        <div className={`flex-1 space-y-6 ${textBase}`}>
-          <p className={`text-xs font-semibold uppercase tracking-[0.45em] ${isLightOverlay ? "text-white/70" : "text-[#b607c5]"}`}>
-            {currentSlide.eyebrow}
-          </p>
-          <h1 className="text-4xl font-bold leading-tight lg:text-5xl">{currentSlide.title}</h1>
-          <p className={`text-base ${textMuted}`}>{currentSlide.description}</p>
-          {renderHighlights(currentSlide.highlights)}
-          {currentSlide.actions && <div className="flex flex-wrap gap-4">{currentSlide.actions.map(renderActionButton)}</div>}
-          {renderStats()}
-        </div>
-        <div className="flex-1">{renderSide()}</div>
-      </div>
-
-      <div className="relative z-10 flex justify-center gap-3 pb-8">
-        {slides.map((slide, idx) => (
-          <button
-            key={slide.id}
-            type="button"
-            onClick={() => setActiveSlide(idx)}
-            className={`h-2 rounded-full transition-all ${
-              idx === activeSlide ? "w-12 bg-white" : "w-4 bg-white/40 hover:bg-white/70"
-            }`}
-            aria-label={`Show ${slide.eyebrow} slide`}
-          />
-        ))}
       </div>
     </section>
   );

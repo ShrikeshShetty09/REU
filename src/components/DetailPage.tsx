@@ -67,8 +67,8 @@ export const DetailPageSection = ({ detail, related, categoryLabel, backHref }: 
           </div>
           <div className="rounded-[28px] border border-white/50 bg-white/90 p-6 text-sm text-foreground/70">
             <p className="text-xs uppercase tracking-[0.4em] text-[#a605c7]">Need support?</p>
-            <p className="mt-2 font-semibold text-foreground">+91 22 2839 3337 · hello@reu-engineering.com</p>
-            <p className="mt-1">Plot A-62, Taloja MIDC, Navi Mumbai</p>
+            <p className="mt-2 font-semibold text-foreground">+91 99870 92470 / +91 90223 65220 · rahulukey@reu.co.in</p>
+            <p className="mt-1">Corporate Address : Shop No 1, Plot No 85, sec-R1, Near MSEB Office, Vadghar, Karanjade, Panvel – 410206</p>
           </div>
         </div>
       </div>

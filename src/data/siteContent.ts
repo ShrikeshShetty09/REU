@@ -64,7 +64,7 @@ const productData: DetailItem[] = [
   },
   {
     category: "product",
-    label: "Back Pressure Valve",
+    label: "Back Pressure Control Valve",
     slug: "back-pressure-valve",
     description: "Maintains minimum pressure on reactors, compressors, and process skids.",
     summary:
@@ -73,19 +73,6 @@ const productData: DetailItem[] = [
       "Wide pressure classes",
       "Integral slam-shut",
       "Materials traceability for critical media",
-    ],
-  },
-  {
-    category: "product",
-    label: "Downstream Pressure Control Valves",
-    slug: "downstream-pressure-control-valves",
-    description: "Stabilize outlet pressure for utilities, OEM skids, and packaging lines.",
-    summary:
-      "Multi-spring actuators with low friction stem guides maintain flat regulation curves at demanding turndown ratios.",
-    highlights: [
-      "Self-actuated design",
-      "Optional slam-shut and monitor regulators",
-      "Cleanroom and hazardous area variants",
     ],
   },
   {
@@ -168,7 +155,7 @@ const productData: DetailItem[] = [
   },
   {
     category: "product",
-    label: "Gas Purification System",
+    label: "Gas purification gas control box & gas detector",
     slug: "gas-purification-system",
     description: "Purifiers removing moisture, hydrocarbons, and particulates from specialty gases.",
     summary:
@@ -190,19 +177,6 @@ const productData: DetailItem[] = [
       "Dual redundant sensing loops",
       "Digital calibration records",
       "Alarm logic tied to shutdown systems",
-    ],
-  },
-  {
-    category: "product",
-    label: "Compressor Supply, Service & Spare",
-    slug: "compressor-supply-service-spare",
-    description: "OEM compressors, overhauls, and spare strategies for air and gas systems.",
-    summary:
-      "From skid supply to lifecycle service, our teams maintain rotary screw, reciprocating, and centrifugal compressors with guaranteed uptime.",
-    highlights: [
-      "Annual maintenance contracts",
-      "Critical spares warehousing",
-      "Retrofit studies for energy savings",
     ],
   },
   {
@@ -233,6 +207,50 @@ const productData: DetailItem[] = [
   },
 ];
 
+export const industrialAutomationColumns: MenuColumn[] = [
+  {
+    heading: "Control System Services",
+    links: [
+      { label: "On Demand Service - Control Systems", href: "/industrial-automation" },
+      { label: "Configuration Services", href: "/industrial-automation" },
+      { label: "Alarm Optimization & Management", href: "/industrial-automation" },
+      { label: "Programmable Controller Services (PLC)", href: "/industrial-automation" },
+      { label: "Wireless Plant Network Support", href: "/industrial-automation" },
+    ],
+  },
+  {
+    heading: "Reliability",
+    links: [
+      { label: "Reliability Consulting", href: "/industrial-automation" },
+      { label: "Vibration Analysis", href: "/industrial-automation" },
+      { label: "Thermography", href: "/industrial-automation" },
+      { label: "Oil Analysis", href: "/industrial-automation" },
+      { label: "Acceptance Testing", href: "/industrial-automation" },
+      { label: "Fan Balancing", href: "/industrial-automation" },
+      { label: "Laser Alignment", href: "/industrial-automation" },
+    ],
+  },
+  {
+    heading: "Project Services",
+    links: [
+      { label: "Main Automation Contractor", href: "/industrial-automation" },
+      { label: "Start-up & Commissioning", href: "/industrial-automation" },
+      { label: "Front End Engineering Design", href: "/industrial-automation" },
+    ],
+  },
+  {
+    heading: "Valve and Mechanical Services",
+    links: [
+      { label: "Valve & Actuation Lifecycle Services", href: "/industrial-automation" },
+      { label: "Pressure Management Services", href: "/industrial-automation" },
+      { label: "Inventory Management", href: "/industrial-automation" },
+      { label: "Shutdown, Turnarounds & Outage (STO) Support Services", href: "/industrial-automation" },
+      { label: "Instrumentation", href: "/industrial-automation" },
+      { label: "Penberthy Assembly Program", href: "/industrial-automation" },
+    ],
+  },
+];
+
 type IndustryDefinition = {
   label: string;
   slug: string;
@@ -253,7 +271,6 @@ const industryDefinitions: IndustryDefinition[] = [
     productSlugs: [
       "pressure-reducing-systems",
       "back-pressure-valve",
-      "downstream-pressure-control-valves",
       "safety-valves",
       "ball-valves-non-return",
     ],
@@ -295,12 +312,7 @@ const industryDefinitions: IndustryDefinition[] = [
     summary:
       "Generation facilities deploy our regulation, monitoring, and compressor programs for predictable uptime.",
     image: "/images/industry-nuclear.jpg",
-    productSlugs: [
-      "pressure-reducing-systems",
-      "gas-pipeline",
-      "temperature-detection-system",
-      "compressor-supply-service-spare",
-    ],
+    productSlugs: ["pressure-reducing-systems", "gas-pipeline", "temperature-detection-system"],
   },
   {
     label: "Industrial Workshops",
@@ -309,12 +321,7 @@ const industryDefinitions: IndustryDefinition[] = [
     summary:
       "Fabrication shops and OEM floors count on our piping, compressor, and safety solutions for day-to-day reliability.",
     image: "/images/industry-chemical.jpg",
-    productSlugs: [
-      "gas-pipeline",
-      "compressor-supply-service-spare",
-      "ball-valves-non-return",
-      "high-pressure-regulators",
-    ],
+    productSlugs: ["gas-pipeline", "ball-valves-non-return", "high-pressure-regulators"],
   },
   {
     label: "Steel Industry",
@@ -323,12 +330,7 @@ const industryDefinitions: IndustryDefinition[] = [
     summary:
       "We engineer redundant pressure trains and monitoring hardware built to survive corrosive, high-temperature environments.",
     image: "/images/industry-metal.jpg",
-    productSlugs: [
-      "downstream-pressure-control-valves",
-      "safety-valves",
-      "high-pressure-cylinder-cascade",
-      "compressor-supply-service-spare",
-    ],
+    productSlugs: ["pressure-reducing-systems", "safety-valves", "high-pressure-cylinder-cascade"],
   },
 ];
 
@@ -355,57 +357,17 @@ const industriesByProduct = industryDefinitions.reduce((acc, industry) => {
 const companyData: DetailItem[] = [
   {
     category: "company",
-    label: "Our Leadership Team",
-    slug: "leadership-team",
-    description: "Seasoned professionals guiding REU Engineering and LLP.",
+    label: "About Us",
+    slug: "about-us",
+    description: "Overview of REU Engineering and LLP.",
     summary:
-      "Decades of engineering, manufacturing, and capital project experience fuel our long-term partnerships across continents.",
+      "REU is a leading supplier and service provider in the field of gas, air, safety, gas detection and process control systems including DeltaV DCS and DeltaV MES, with strong history of quality, timely delivery and site support.",
     highlights: [
-      "Executive council with EPC, operations, and finance leaders",
-      "Advisory board featuring industry veterans",
-      "Mentorship programs for young engineers",
+      "Gas, air, safety and gas detection expertise",
+      "DeltaV DCS and MES implementation and validation",
+      "Hydrogen and nitrogen bank solutions with manifolds and piping",
     ],
     image: "/images/leadership.jpg",
-  },
-  {
-    category: "company",
-    label: "Our Partners",
-    slug: "partners",
-    description: "Technology and channel alliances extending our reach.",
-    summary:
-      "OEM collaborations and service partnerships allow us to deliver turnkey performance guarantees in new geographies.",
-    highlights: [
-      "Certified fabrication allies",
-      "Regional service depots",
-      "Shared R&D for new applications",
-    ],
-    image: "/images/team.jpg",
-  },
-  {
-    category: "company",
-    label: "Social Responsibilities",
-    slug: "social-responsibilities",
-    description: "Community programs developed by our people.",
-    summary:
-      "STEM scholarships, energy-efficiency drives, and local sustainability initiatives bring our values beyond plant walls.",
-    highlights: [
-      "Rural STEM labs",
-      "Waste reduction sprints",
-      "Employee volunteering cohorts",
-    ],
-  },
-  {
-    category: "company",
-    label: "Explore All Opportunities",
-    slug: "careers",
-    description: "Career opportunities across engineering, production, and services.",
-    summary:
-      "Upskilling roadmaps, mentorship, and global assignments empower every hire to grow alongside REU Engineering.",
-    highlights: [
-      "Structured graduate trainee program",
-      "Cross-functional rotations",
-      "Hybrid and on-site roles",
-    ],
   },
   {
     category: "company",
@@ -422,41 +384,27 @@ const companyData: DetailItem[] = [
   },
   {
     category: "company",
-    label: "Technical Articles",
-    slug: "technical-articles",
-    description: "Insights from our engineers.",
+    label: "Our Catalogue",
+    slug: "our-catalogue",
+    description: "Browse the complete REU equipment and services catalogue.",
     summary:
-      "We publish application notes and upgrade guides to help plant teams modernize utility infrastructure confidently.",
+      "Flip through our latest REU catalogue to explore pressure control equipment, gas handling skids, automation services, and reference installations in a single, shareable document.",
     highlights: [
-      "Downloadable whitepapers",
-      "Webinars with live demos",
-      "Case studies with measurable ROI",
+      "Consolidated product and services overview",
+      "Specification snapshots for major assemblies",
+      "Contact information and project references",
     ],
   },
   {
     category: "company",
     label: "Events",
     slug: "events",
-    description: "Where you can meet us next.",
+    description: "Expo participation and key events.",
     summary:
-      "From trade fairs to customer days, we showcase new technologies and gather feedback face to face.",
+      "REU participates in industry expos such as ChemTech Expo Mumbai and IPEC Hyderabad, showcasing solutions in gas, air, safety and process control.",
     highlights: [
-      "Annual innovation summit",
-      "Regional breakfast briefings",
-      "Virtual demos on demand",
-    ],
-  },
-  {
-    category: "company",
-    label: "Press Release",
-    slug: "press-release",
-    description: "Latest announcements from REU Engineering and LLP.",
-    summary:
-      "Keep up with major project wins, technology collaborations, and milestones as we scale globally.",
-    highlights: [
-      "Project commissioning news",
-      "Partnership announcements",
-      "Awards and recognitions",
+      "ChemTech Expo c Mumbai",
+      "IPEC c Hyderabad",
     ],
   },
 ];
@@ -504,15 +452,7 @@ export const companyColumns: MenuColumn[] = [
   {
     heading: "About Us",
     links: [
-      { label: "Our Leadership Team", href: toHref("company", "leadership-team") },
-      { label: "Our Partners", href: toHref("company", "partners") },
-    ],
-  },
-  {
-    heading: "Career",
-    links: [
-      { label: "Social Responsibilities", href: toHref("company", "social-responsibilities") },
-      { label: "Explore All Opportunities", href: toHref("company", "careers") },
+      { label: "About REU", href: toHref("company", "about-us") },
     ],
   },
   {
@@ -520,14 +460,31 @@ export const companyColumns: MenuColumn[] = [
     links: [{ label: "Quality Assurance", href: toHref("company", "quality-assurance") }],
   },
   {
-    heading: "Blog",
-    links: [{ label: "Technical Articles", href: toHref("company", "technical-articles") }],
+    heading: "Our Catalogue",
+    links: [{ label: "Our Catalogue", href: toHref("company", "our-catalogue") }],
   },
   {
     heading: "News & Event",
     links: [
       { label: "Events", href: toHref("company", "events") },
-      { label: "Press Release", href: toHref("company", "press-release") },
+    ],
+  },
+];
+
+export const serviceSupportColumns: MenuColumn[] = [
+  {
+    heading: "Service",
+    links: [
+      { label: "Compressor & Supply", href: "/service-support#services" },
+      { label: "Gas Detection System", href: "/service-support#services" },
+    ],
+  },
+  {
+    heading: "Support",
+    links: [
+      { label: "Product Enquiry", href: "/service-support/product-enquiry" },
+      { label: "Customer Feedback", href: "/service-support/customer-feedback" },
+      { label: "Service Request", href: "/service-support/service-request" },
     ],
   },
 ];
@@ -539,13 +496,14 @@ export type NavItem =
 
 export const navItems: NavItem[] = [
   { label: "Home", href: "/" },
-  { label: "Products", menuType: "columns", columns: productColumns },
-  { label: "Solutions", menuType: "cards", cards: solutionCardsMenu },
-  { label: "Company", menuType: "columns", columns: companyColumns },
-  { label: "Clients", href: "/clients" },
-  { label: "Service & Support", href: "/service-support" },
-  { label: "Industrial Automation", href: "/industrial-automation" },
-  { label: "Contact Us", href: "/contact" },
+  { label: "PRODUCTS", menuType: "columns", columns: productColumns },
+  { label: "SOLUTIONS", menuType: "cards", cards: solutionCardsMenu },
+  { label: "COMPANY", menuType: "columns", columns: companyColumns },
+  { label: "CERTIFICATES", href: "/certificates" },
+  { label: "CLIENTS", href: "/clients" },
+  { label: "SERVICE & SUPPORT", menuType: "columns", columns: serviceSupportColumns },
+  { label: "INDUSTRIAL AUTOMATION", href: "/industrial-automation" },
+  { label: "CONTACT US", href: "/contact" },
 ];
 
 export const heroStats = [
