@@ -27,185 +27,275 @@ const productData: DetailItem[] = [
     category: "product",
     label: "Pressure Reducing Systems",
     slug: "pressure-reducing-systems",
-    description: "Multi-stage regulators that hold upstream lines steady despite fluctuating feeds.",
+    description:
+      "Engineered pressure reducing stations that maintain stable downstream pressure even when inlet conditions and flow demands are changing throughout the day. Typical packages include isolation valves, strainers, pilots, gauges and safety accessories built on a compact skid.",
     summary:
-      "Self-actuated stations sized for refinery, chemical, and pharma utilities keep upstream headers within tight tolerances without external power.",
+      "Self-actuated or pilot-operated pressure reducing systems sized for refinery, chemical, pharma and utility services. Designed to deliver tight outlet control without external power while protecting critical downstream equipment.",
     highlights: [
-      "Balanced trim for fast response",
-      "Fail-safe closure with monitored pilots",
-      "ASME / PESO compliant fabrication",
+      "Balanced trim and optimized flow paths for fast response and low noise",
+      "Fail-safe closure with monitored pilots and slam-shut options",
+      "ASME / PESO compliant fabrication with documented test records",
+      "Available in single, duplex and multi-stream configurations",
+      "Suitable for gases, air, steam and selected liquids",
     ],
   },
   {
     category: "product",
     label: "High Pressure Cylinder Cascade",
     slug: "high-pressure-cylinder-cascade",
-    description: "Manifolded cylinder banks with sequencing panels for uninterrupted supply.",
+    description:
+      "Manifolded cylinder banks assembled into rugged cascades with isolation, non-return valves and pressure control elements. Designed to simplify handling of high pressure cylinders and ensure uninterrupted gas supply to the downstream network.",
     summary:
-      "Factory-built racks, valves, and monitoring devices allow safe decanting from tube trailers or cylinder bundles to plant networks.",
+      "Factory-built cylinder cascades with integrated manifolds, isolation valves and monitoring devices. Ideal for plants requiring continuous high-pressure gas from tube trailers or cylinder bundles with safe changeover.",
     highlights: [
-      "Interlocked change-over valves",
-      "Crash-frame and lifting certified",
-      "Remote pressure monitoring options",
+      "Interlocked change-over valves for secure bank switching",
+      "Crash-frame and lifting certified racks for safe transport and installation",
+      "Provision for remote pressure monitoring and low-pressure alarms",
+      "Customizable for oxygen, nitrogen, hydrogen and specialty gases",
+      "Compatible with downstream pressure reducing stations",
     ],
   },
   {
     category: "product",
     label: "Centrifugal Blanketing",
     slug: "centrifugal-blanketing",
-    description: "Nitrogen blankets that protect centrifuges from oxidation and ignition.",
+    description:
+      "Nitrogen blanketing systems designed around high-speed centrifuges and similar rotating equipment. The system maintains an inert atmosphere inside the housing to help prevent oxidation, product degradation and potential ignition sources.",
     summary:
-      "Close-coupled sense lines and responsive control valves maintain inert atmospheres inside high-speed centrifuge housings.",
+      "Compact nitrogen blanketing packages that continuously maintain the correct positive pressure and purity around centrifuges and process vessels. Helps protect operators, equipment and product quality.",
     highlights: [
-      "Compact skid for retrofits",
-      "Dual isolation for maintenance",
-      "NFPA / ATEX aligned venting",
+      "Compact skid layout ideal for retrofits into existing plants",
+      "Dual isolation valves and bypass arrangements for maintenance",
+      "Vent and relief design aligned with NFPA / ATEX recommendations",
+      "Supports nitrogen savings with optimized set-points",
+      "Available with local or remote monitoring gauges",
     ],
   },
   {
     category: "product",
     label: "Back Pressure Control Valve",
     slug: "back-pressure-valve",
-    description: "Maintains minimum pressure on reactors, compressors, and process skids.",
+    description:
+      "Back pressure valves that maintain a minimum upstream pressure on reactors, compressors, filters and process skids. The valve opens as upstream pressure rises and closes as it falls, stabilizing recycle loops and protecting equipment from pressure collapse.",
     summary:
-      "Precision back-pressure regulators protect upstream equipment from pressure collapse and stabilize recycle loops.",
+      "Self-contained or pilot-operated back pressure regulators for gases and liquids. Used to hold a constant upstream pressure and keep process units operating within their design window.",
     highlights: [
-      "Wide pressure classes",
-      "Integral slam-shut",
-      "Materials traceability for critical media",
+      "Wide pressure classes and Cv ranges for diverse applications",
+      "Integral slam-shut and over-pressure protection options",
+      "Materials traceability and special trims for critical media",
+      "Can be configured as relief, bypass or circulation control valve",
+      "Suitable for continuous process and batch duty",
     ],
   },
   {
     category: "product",
     label: "Breather Valves & Flame Arresters",
     slug: "breather-valves-and-flame-arresters",
-    description: "Tank vent protection combining pressure/vacuum pallets with flame stopping elements.",
+    description:
+      "Pressure / vacuum relief valves and flame arresters that safeguard storage tanks and process vessels. The assemblies combine weighted pallets or spring-loaded mechanisms with tested arrestor elements in a compact vent package.",
     summary:
-      "Weighted pallets and tested arrestor elements protect storage tanks from vacuum collapse, over-pressure, and flashback events.",
+      "Breather valves and inline / end-of-line flame arresters that protect tanks against over-pressure, vacuum and flame flashback. Designed to reduce vapor loss while maintaining safety.",
     highlights: [
-      "Bi-directional flame arrestors",
-      "Weather hoods and screens",
-      "Tool-free pallet adjustments",
+      "Bi-directional and unidirectional flame arrestor options",
+      "Weather hoods, insect screens and anti-rain designs",
+      "Tool-free pallet inspection and setting adjustments",
+      "Available in a range of sizes, materials and connection standards",
+      "Designed to meet relevant API and international guidelines",
     ],
   },
   {
     category: "product",
     label: "Safety Valves",
     slug: "safety-valves",
-    description: "Certified over-pressure protection for vessels, piping, and skids.",
+    description:
+      "Pressure relief valves that provide certified over-pressure protection for pressure vessels, piping and packaged skids. Each valve is sized and set according to the applicable code and process conditions.",
     summary:
-      "Spring and pilot-operated relief valves sized to API 520/526 relieve vapor, liquid, and two-phase flows with quick reseat performance.",
+      "Spring-loaded and pilot-operated safety relief valves sized in line with API 520/526 and similar standards. Configurable for vapor, liquid or two-phase flow with reliable reseating performance.",
     highlights: [
-      "PED / IBR compliance",
-      "High-temperature trims",
-      "Condition monitoring taps",
+      "PED / IBR and other applicable code compliance",
+      "High-temperature and corrosion-resistant trims available",
+      "Condition monitoring taps for online testing and inspection",
+      "Comprehensive documentation and test certificates",
+      "Different blowdown and back-pressure arrangements",
     ],
   },
   {
     category: "product",
     label: "Ball Valves & Non Return Valves etc.",
     slug: "ball-valves-non-return",
-    description: "Isolation and check valves for critical process utilities.",
+    description:
+      "Range of isolation and check valves for gas, air and process utilities. Options include full-bore ball valves, swing checks, wafer checks and customized NRVs in various pressure classes and materials.",
     summary:
-      "Full-bore ball valves, swing checks, and NRVs in carbon steel, stainless, and exotic alloys ensure leak-tight shutoff and backflow protection.",
+      "Full-bore ball valves, swing checks and non-return valves in carbon steel, stainless steel and special alloys. Engineered for leak-tight shutoff, low pressure drop and dependable backflow protection.",
     highlights: [
-      "Fire-safe designs",
-      "API / ANSI dimensional standards",
-      "Custom actuation packages",
+      "Fire-safe and anti-blowout stem designs",
+      "API / ANSI dimensional standards and pressure ratings",
+      "Manual, gear and pneumatic / electric actuation packages",
+      "End connections including screwed, flanged and socket weld",
+      "Suitable for utility distribution as well as process duties",
     ],
   },
   {
     category: "product",
     label: "High Pressure Regulators",
     slug: "high-pressure-regulators",
-    description: "Point-of-use regulators for labs, OEM skids, and specialty gas lines.",
+    description:
+      "Point-of-use pressure regulators for cylinder manifolds, lab benches, OEM skids and specialty gas lines. Available in single-stage and two-stage configurations for different accuracy and turndown requirements.",
     summary:
-      "Single and double-stage regulators with creep-free shutoff deliver precise control from cylinder pressure to instrument-grade delivery.",
+      "Single and double-stage high-pressure regulators that provide creep-free shutoff and stable outlet pressure from cylinder pressure down to instrument-grade delivery levels.",
     highlights: [
-      "Brass, SS, and Monel bodies",
-      "Replaceable seat cartridges",
-      "Optional digital indication",
+      "Bodies in brass, stainless steel and Monel for different media",
+      "Replaceable seat cartridges and easy serviceability",
+      "Optional digital pressure indication and local gauges",
+      "Suitable for high purity, corrosive or industrial gas service",
+      "Configurable for panel mounting or line mounting",
     ],
   },
   {
     category: "product",
     label: "Gas Detection System",
     slug: "gas-detection-system",
-    description: "Fixed detectors, controllers, and alarms for toxic or flammable gases.",
+    description:
+      "Fixed gas detection systems combining field detectors, controllers and alarms to monitor toxic, flammable or oxygen-depletion hazards. Solutions can be tailored for process plants, labs, compressor rooms and storage areas.",
     summary:
-      "Integrated detection platforms cover catalytic, electrochemical, and IR sensing with SIL-rated logic and annunciation.",
+      "Integrated gas detection platforms covering catalytic, electrochemical and IR sensing technologies. Designed to interface with panels, PLCs and DCS systems for reliable alarming and shutdown.",
     highlights: [
-      "Multi-channel controllers",
-      "BMS / DCS integration",
-      "Calibration and AMC support",
+      "Multi-channel controllers with programmable alarm set-points",
+      "Easy BMS / DCS / EMS integration via standard protocols",
+      "Calibration, bump testing and annual maintenance contracts",
+      "Options for portable and fixed detectors as per requirement",
+      "Audio-visual alarms and event logging",
     ],
   },
   {
     category: "product",
     label: "Gas Pipeline",
     slug: "gas-pipeline",
-    description: "Turnkey industrial gas pipeline networks from cylinder room to point-of-use.",
+    description:
+      "Turnkey industrial and medical gas pipeline networks from cylinder yard or bulk storage up to each point-of-use. Scope typically includes design, supply, installation, testing and documentation.",
     summary:
-      "Design, fabrication, and installation services covering headers, manifolds, drop lines, and documentation for regulated facilities.",
+      "End-to-end gas pipeline solutions covering headers, manifolds, main distribution lines and drops. Executed to relevant codes and client standards for safe and reliable gas distribution.",
     highlights: [
-      "Orbital welded SS316L",
-      "Leak tested to international codes",
-      "Colour coding and tagging as per standards",
+      "Orbital welded SS316L or other materials as per application",
+      "Leak tested and documented to applicable international codes",
+      "Colour coding, tagging and identification as per standards",
+      "Support design, stress considerations and expansion loops",
+      "As-built drawings and handover documentation",
     ],
   },
   {
     category: "product",
     label: "Gas purification gas control box & gas detector",
     slug: "gas-purification-system",
-    description: "Purifiers removing moisture, hydrocarbons, and particulates from specialty gases.",
+    description:
+      "Gas purification systems and control boxes that remove moisture, oxygen, hydrocarbons and particulates from specialty gases. Offered as panel-mounted or skid-mounted assemblies with monitoring provisions.",
     summary:
-      "Cartridge-based and regenerative purifier trains keep analytical instruments and process tools supplied with ultra-clean media.",
+      "Cartridge-based and regenerative purifier trains that keep analytical instruments, lab equipment and process tools supplied with ultra-clean gas media.",
     highlights: [
-      "Moisture and oxygen getters",
-      "Integrated monitoring gauges",
-      "Service-exchange programs",
+      "Moisture, oxygen and hydrocarbon getter options",
+      "Integrated monitoring gauges and sampling ports",
+      "Service-exchange programs and periodic media replacement",
+      "Configurable for different flow rates and gas types",
+      "Can be integrated with gas detection and alarm systems",
     ],
   },
   {
     category: "product",
     label: "Temperature Detection System",
     slug: "temperature-detection-system",
-    description: "Sensor networks and control panels for temperature-critical assets.",
+    description:
+      "Temperature sensing networks and control panels used to monitor critical assets such as storage tanks, pipelines, compressors and electrical equipment. Combines field sensors with indication, recording and alarming.",
     summary:
-      "RTD and thermocouple arrays with SCADA-ready panels provide continuous monitoring for storage, pipelines, and compressors.",
+      "RTD and thermocouple based temperature detection systems with SCADA or DCS ready panels. Provide continuous monitoring and early warning for over-temperature conditions.",
     highlights: [
-      "Dual redundant sensing loops",
-      "Digital calibration records",
-      "Alarm logic tied to shutdown systems",
-    ],
-  },
-  {
-    category: "product",
-    label: "Mini Gas Station",
-    slug: "mini-gas-station",
-    description: "Compact fueling or dispensing skids for localized gas supply.",
-    summary:
-      "Integrated metering, regulation, and safety shutoffs packaged into transportable enclosures for satellite gas stations.",
-    highlights: [
-      "Plug-and-play installation",
-      "Remote telemetry ready",
-      "Meets PESO guidelines",
+      "Dual redundant sensing loops for high availability",
+      "Digital calibration records and documentation support",
+      "Alarm logic that can be tied into shutdown or interlock systems",
+      "Suitable for hazardous and non-hazardous area installations",
+      "Panel layouts tailored to site standards",
     ],
   },
   {
     category: "product",
     label: "Utility & Lab Fume Hood Piping",
     slug: "utility-lab-fume-hood-piping",
-    description: "Design-build services for laboratory utility and fume hood piping.",
+    description:
+      "Design and execution of utility and fume hood piping for R&D, QC and production laboratories. Covers gas, vacuum, water, exhaust and associated safety accessories as required by the application.",
     summary:
-      "Ultra-clean piping layouts, manifolds, and exhaust interfaces keep R&D and QC labs compliant with global safety norms.",
+      "Ultra-clean utility and fume hood piping layouts that help laboratories meet global safety, hygiene and performance norms.",
     highlights: [
-      "Borosilicate and SS options",
-      "Velocity-calibrated exhaust headers",
-      "Complete validation documentation",
+      "Piping options in borosilicate glass, stainless steel and compatible plastics",
+      "Velocity-calibrated exhaust headers and capture devices",
+      "Complete validation documentation and as-built drawings",
+      "Integration of emergency showers, eye wash and safety hardware where needed",
+      "Coordination with HVAC and building services for smooth installation",
+    ],
+  },
+  {
+    category: "product",
+    label: "Flow Meter",
+    slug: "flow-meter",
+    description:
+      "Inline and insertion type flow meters designed for gases, air and process fluids. Offered with mechanical or electronic indication and optional pulse / analog outputs for integration with PLC, DCS or standalone panels.",
+    summary:
+      "Flow measurement solutions that help monitor consumption, balance networks and protect critical equipment. Available in multiple technologies to suit different accuracy, pressure drop and cost requirements.",
+    highlights: [
+      "Configurations for industrial gas, compressed air and liquid services",
+      "Mechanical, turbine, variable area and digital flow technologies",
+      "Local indication with options for 4–20 mA / pulse outputs",
+      "Can be supplied as part of skid-mounted metering packages",
+      "Calibration and documentation support as per project needs",
+    ],
+  },
+  {
+    category: "product",
+    label: "Rota Meter",
+    slug: "rota-meter",
+    description:
+      "Panel and line mounted variable area rota meters for visual indication of gas and liquid flow. Transparent tubes, floats and scaled graduations allow operators to verify and adjust flows at a glance.",
+    summary:
+      "Simple, reliable rota meters that provide direct visual confirmation of flow in utility, lab and process lines. Ideal where power-free, low maintenance indication is required.",
+    highlights: [
+      "Compact designs for panel boards, lab benches and skids",
+      "Clear tubes with easy-to-read scales and optional alarms",
+      "Materials suitable for common industrial gases and liquids",
+      "Individual or manifolded assemblies for multi-stream services",
+      "Can be combined with regulators, valves and instrumentation from the REU range",
     ],
   },
 ];
+
+export const productImagesBySlug: Record<string, string[]> = {
+  "pressure-reducing-systems": [
+    "/images/products/PRS.png",
+    "/images/products/Dual_Stream_Pressure_Reducing_Station.png",
+    "/images/products/H2 PRS.png",
+    "/images/products/O2 PRS.png",
+    "/images/products/PRS plane.png",
+  ],
+  "breather-valves-and-flame-arresters": [
+    "/images/products/Breather valve with Flame aresstor.png",
+    "/images/products/Flame Aresstor.png",
+  ],
+  "safety-valves": [
+    "/images/products/Safety Valve.png",
+    "/images/products/Safety Valve with Vaccume.png",
+  ],
+  "high-pressure-regulators": [
+    "/images/products/H2 PRS.png",
+    "/images/products/O2 PRS.png",
+  ],
+  "high-pressure-cylinder-cascade": ["/images/products/hydrogen-gas-cylinder-cascade.png"],
+  "centrifugal-blanketing": ["/images/products/centrifugal_blanketing.png"],
+  "back-pressure-valve": ["/images/products/BPRV.png"],
+  "ball-valves-non-return": ["/images/products/Isolation_Block_valve.png"],
+  "gas-detection-system": ["/images/products/Gas detector system.png"],
+  "utility-lab-fume-hood-piping": ["/images/products/laboratory-gas-tubing.png"],
+  "gas-purification-system": ["/images/products/Gas purification gas control box & gas detector.png"],
+  "temperature-detection-system": ["/images/products/temperature_detection.png"],
+  "flow-meter": ["/images/products/reu_flow_meter.png"],
+  "rota-meter": ["/images/products/rota_meter.png"],
+};
 
 export const industrialAutomationColumns: MenuColumn[] = [
   {
@@ -267,7 +357,7 @@ const industryDefinitions: IndustryDefinition[] = [
     description: "Precision control packages that keep assembly lines, reactors, and utilities stable.",
     summary:
       "From upstream regulation to final isolation, our OEM-grade valves and skids help manufacturing plants run safer and leaner.",
-    image: "/images/industry-chemical.jpg",
+    image: "/images/reu_manufacturing.png",
     productSlugs: [
       "pressure-reducing-systems",
       "back-pressure-valve",
@@ -281,14 +371,8 @@ const industryDefinitions: IndustryDefinition[] = [
     description: "Integrated solutions for upstream, midstream, and downstream gas infrastructure.",
     summary:
       "Hydrocarbon operators rely on REU for pressure reduction, metering, and safety systems that meet global standards.",
-    image: "/images/industry-oil-gas.jpg",
-    productSlugs: [
-      "pressure-reducing-systems",
-      "high-pressure-cylinder-cascade",
-      "gas-pipeline",
-      "gas-purification-system",
-      "mini-gas-station",
-    ],
+    image: "/images/reu_oilAndGas.png",
+    productSlugs: ["pressure-reducing-systems", "high-pressure-cylinder-cascade", "gas-pipeline", "gas-purification-system"],
   },
   {
     label: "Medical & Pharma",
@@ -296,7 +380,7 @@ const industryDefinitions: IndustryDefinition[] = [
     description: "High-purity gas, detection, and piping tailored for labs, cleanrooms, and production blocks.",
     summary:
       "Validation-friendly hardware keeps lifesaving operations compliant while enabling rapid scale-ups.",
-    image: "/images/industry-pharma.jpg",
+    image: "/images/reu_medicalAndPharma.png",
     productSlugs: [
       "high-pressure-regulators",
       "gas-detection-system",
@@ -311,7 +395,7 @@ const industryDefinitions: IndustryDefinition[] = [
     description: "Reliable utilities for thermal, renewable, and hydrogen energy ecosystems.",
     summary:
       "Generation facilities deploy our regulation, monitoring, and compressor programs for predictable uptime.",
-    image: "/images/industry-nuclear.jpg",
+    image: "/images/reu_powerAndEnergy.png",
     productSlugs: ["pressure-reducing-systems", "gas-pipeline", "temperature-detection-system"],
   },
   {
@@ -320,7 +404,7 @@ const industryDefinitions: IndustryDefinition[] = [
     description: "Utility rooms and tool lines that demand rugged, serviceable equipment.",
     summary:
       "Fabrication shops and OEM floors count on our piping, compressor, and safety solutions for day-to-day reliability.",
-    image: "/images/industry-chemical.jpg",
+    image: "/images/reu_IndustrialWorkshop.png",
     productSlugs: ["gas-pipeline", "ball-valves-non-return", "high-pressure-regulators"],
   },
   {
@@ -329,7 +413,7 @@ const industryDefinitions: IndustryDefinition[] = [
     description: "Heavy-duty regulation and safety protection for furnaces, ladles, and process utilities.",
     summary:
       "We engineer redundant pressure trains and monitoring hardware built to survive corrosive, high-temperature environments.",
-    image: "/images/industry-metal.jpg",
+    image: "/images/reu_steelIndustry.png",
     productSlugs: ["pressure-reducing-systems", "safety-valves", "high-pressure-cylinder-cascade"],
   },
 ];

@@ -160,18 +160,20 @@ export const NavBar = () => {
         </div>
       </div>
       <div
-        className="flex w-full flex-col gap-4 px-6 py-4 md:flex-row md:items-center md:justify-start"
+        className="flex w-full flex-col gap-4 px-4 py-4 md:flex-row md:items-center md:justify-start"
         onMouseLeave={() => {
           setActiveMenu(null);
           setIsSearchOpen(false);
         }}
       >
-        <div className="flex items-center justify-between  md:justify-start">
-          <div className="relative h-15 w-38 overflow-hidden">
+        <div className="flex items-center justify-between md:justify-start">
+          <div className="relative h-15 w-32 flex-shrink-0 overflow-hidden">
             <Image src="/images/reu_logo/logo.png" alt={brandInitials} fill sizes="96px" className="object-contain" />
           </div>
-          <div>
-            <p className="text-lg font-semibold leading-tight">REU ENGINEERING & CONSULTING LLP</p>
+          <div className="flex min-w-0 flex-1 items-center">
+            <p className="-ml-4 truncate text-sm font-semibold leading-tight md:text-base lg:text-lg">
+              REU ENGINEERING & CONSULTING LLP
+            </p>
           </div>
           {/* Mobile hamburger */}
           <button
@@ -187,10 +189,12 @@ export const NavBar = () => {
           </button>
         </div>
         {/* Desktop navigation */}
-        <nav className="hidden flex-1 items-center justify-start gap-2 text-[0.85rem] font-semibold uppercase tracking-wide md:ml-10 md:flex md:flex-nowrap">
+        <nav className="hidden flex-1 items-center justify-start gap-0.5 text-[0.7rem] font-semibold uppercase tracking-[0.08em] md:ml-4 md:flex md:flex-nowrap">
           {navItems.map((item) => {
             const isActive = item.href ? pathname === item.href : false;
             const hasMenu = isMenuNavItem(item);
+            const isProducts = item.label === "PRODUCTS";
+            const isServiceSupport = item.label === "SERVICE & SUPPORT";
             return (
               <div key={item.label} className="relative">
                 {item.href ? (
@@ -198,7 +202,7 @@ export const NavBar = () => {
                     href={item.href}
                     onMouseEnter={() => setActiveMenu(null)}
                     style={isActive ? { color: "#ffffff" } : undefined}
-                    className={`rounded-full px-3 py-1.5 whitespace-nowrap transition ${
+                    className={`rounded-full px-1.5 py-1.5 whitespace-nowrap transition ${
                       isActive
                         ? "bg-gradient-to-r from-[#a605c7] to-[#5d075f] text-white"
                         : "text-foreground/80 hover:bg-white/70 hover:text-foreground"
@@ -206,10 +210,28 @@ export const NavBar = () => {
                   >
                     {item.label}
                   </Link>
+                ) : isServiceSupport ? (
+                  <Link
+                    href="/service-support"
+                    onMouseEnter={() => setActiveMenu(item.label)}
+                    className="flex items-center gap-1 rounded-full px-1.5 py-1.5 whitespace-nowrap text-foreground/80 transition hover:bg-white/70 hover:text-foreground"
+                  >
+                    <span>{item.label}</span>
+                    <span className="text-[0.6rem] align-middle">▼</span>
+                  </Link>
+                ) : isProducts ? (
+                  <Link
+                    href="/products"
+                    onMouseEnter={() => setActiveMenu(item.label)}
+                    className="flex items-center gap-1 rounded-full px-2 py-1.5 whitespace-nowrap text-foreground/80 transition hover:bg-white/70 hover:text-foreground"
+                  >
+                    <span>{item.label}</span>
+                    <span className="text-[0.6rem] align-middle">▼</span>
+                  </Link>
                 ) : (
                   <button
                     onMouseEnter={() => setActiveMenu(item.label)}
-                    className="flex items-center gap-1 rounded-full px-3 py-1.5 whitespace-nowrap text-foreground/80 transition hover:bg-white/70 hover:text-foreground"
+                    className="flex items-center gap-1 rounded-full px-2.5 py-1.5 whitespace-nowrap text-foreground/80 transition hover:bg-white/70 hover:text-foreground"
                   >
                     <span>{item.label}</span>
                     <span className="text-[0.6rem] align-middle">▼</span>
@@ -227,7 +249,7 @@ export const NavBar = () => {
           <div className="relative">
             <button
               onClick={() => setIsSearchOpen(!isSearchOpen)}
-              className="rounded-full border border-[#a605c7]/40 px-4 py-2 text-[#a605c7] transition hover:bg-[#a605c7] hover:text-white"
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-[#a605c7]/40 text-[#a605c7] transition hover:bg-[#a605c7] hover:text-white"
             >
               <span className="sr-only">Search</span>
               <SearchIcon />

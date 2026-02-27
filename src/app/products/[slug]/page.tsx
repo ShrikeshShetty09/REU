@@ -7,7 +7,7 @@ import {
 } from "@/data/siteContent";
 
 type PageProps = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
 export function generateStaticParams() {
@@ -16,8 +16,9 @@ export function generateStaticParams() {
     .map((detail) => ({ slug: detail.slug }));
 }
 
-export default function ProductDetailPage({ params }: PageProps) {
-  const detail = getDetailBySlug(params.slug);
+export default async function ProductDetailPage({ params }: PageProps) {
+  const { slug } = await params;
+  const detail = getDetailBySlug(slug);
   if (!detail || detail.category !== "product") {
     notFound();
   }
@@ -29,7 +30,7 @@ export default function ProductDetailPage({ params }: PageProps) {
       detail={detail}
       related={related}
       categoryLabel="Products"
-      backHref="/products/upstream-pressure-control-valve"
+      backHref="/products"
     />
   );
 }
