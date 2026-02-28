@@ -131,7 +131,7 @@ export const NavBar = () => {
 
   return (
     <div className="sticky top-0 z-50 border-b border-white/40 bg-white/80 text-sm text-foreground/90 backdrop-blur">
-      <div className="hidden border-b border-white/40 bg-gradient-to-r from-[#a605c7] to-[#5d075f] px-6 py-2 text-xs text-white md:block">
+      <div className="border-b border-white/40 bg-gradient-to-r from-[#a605c7] to-[#5d075f] px-6 py-2 text-xs text-white">
         <div className="mx-auto flex max-w-6xl items-center justify-between">
           <div className="flex items-center gap-4">
             <a href="tel:+919987092470" className="hover:underline">
