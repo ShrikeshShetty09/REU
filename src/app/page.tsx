@@ -52,7 +52,7 @@ const leadershipDetail = detailContent["leadership-team"];
 
 export default function Home() {
   return (
-    <main className="space-y-24 pb-24 pt-0 text-[#230124]">
+    <main className="pb-24 pt-0 text-[#230124]">
       {/* Hero */}
       <HeroSection customServices={customServices} />
 
@@ -102,7 +102,7 @@ export default function Home() {
       </section>
 
       {/* Product list */}
-      <section className="bg-[#120018] py-16" id="products">
+      <section className="mt-16 bg-[#120018] py-16" id="products">
         <div className="mx-auto max-w-6xl space-y-6 px-6">
           <div className="text-center text-white">
             <p className="text-xs font-semibold uppercase tracking-[0.5em] text-[#ff9df7]">Product List</p>
@@ -124,7 +124,7 @@ export default function Home() {
       </section>
 
       {/* Industries */}
-      <section className="mx-auto max-w-6xl space-y-8 px-6" id="solutions">
+      <section className="mx-auto mt-16 max-w-6xl space-y-8 px-6" id="solutions">
         <div className="text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.5em] text-[#b607c5]">Industries We Serve</p>
           <h3 className="mt-3 text-3xl font-bold text-[#2b0030]">Expertise that delivers</h3>
@@ -152,7 +152,7 @@ export default function Home() {
       </section>
 
       {/* Services */}
-      <section className="bg-gradient-to-br from-[#fff5ff] via-[#ffe6ff] to-[#fff7ff] py-16" id="services">
+      <section className="mt-16 bg-gradient-to-br from-[#fff5ff] via-[#ffe6ff] to-[#fff7ff] py-16" id="services">
         <div className="mx-auto max-w-6xl space-y-8 px-6">
           <div className="text-center">
             <p className="text-xs font-semibold uppercase tracking-[0.5em] text-[#a605c7]">Customise Requirements & Services Provided</p>
@@ -170,7 +170,7 @@ export default function Home() {
       </section>
 
       {/* Clients */}
-      <section className="bg-gradient-to-b from-[#fff6ff] to-[#f5e5ff] py-16">
+      <section className="mt-16 bg-gradient-to-b from-[#fff6ff] to-[#f5e5ff] py-16">
         <div className="mx-auto max-w-6xl space-y-8 px-6">
           <div className="text-center">
             <p className="text-xs font-semibold uppercase tracking-[0.5em] text-[#b607c5]">Trusted by industry leaders</p>
@@ -200,7 +200,7 @@ export default function Home() {
       </section>
 
       {/* Contact */}
-      <section className="mx-auto max-w-6xl grid gap-8 px-6 lg:grid-cols-2" id="contact">
+      <section className="mx-auto mt-16 grid max-w-6xl gap-8 px-6 lg:grid-cols-2" id="contact">
         <div className="rounded-[32px] border border-[#f3d7ff] bg-white/90 p-8 shadow-xl">
           <p className="text-xs font-semibold uppercase tracking-[0.5em] text-[#a605c7]">Registered office & support</p>
           <h3 className="mt-4 text-3xl font-bold text-[#2b0030]">Talk directly with the LLP partners</h3>

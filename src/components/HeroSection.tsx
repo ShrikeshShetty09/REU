@@ -41,6 +41,14 @@ type HeroSectionProps = {
 
 const SLIDE_DURATION = 9000;
 
+const PRODUCT_STRIP_IMAGES = [
+  "/images/products/O2 PRS.png",
+  "/images/products/H2 PRS.png",
+  "/images/products/PRS plane.png",
+  "/images/products/centrifugal_blanketing.png",
+  "/images/products/Dual_Stream_Pressure_Reducing_Station.png",
+];
+
 export const HeroSection = ({ customServices }: HeroSectionProps) => {
   const slides = useMemo<HeroSlide[]>(() => {
     const serviceHighlights =
@@ -113,6 +121,7 @@ export const HeroSection = ({ customServices }: HeroSectionProps) => {
   const [activeSlide, setActiveSlide] = useState(0);
   const [backgroundFrame, setBackgroundFrame] = useState(0);
   const [sideFrame, setSideFrame] = useState(0);
+  const [productStripFrame, setProductStripFrame] = useState(0);
   const totalSlides = slides.length;
   const currentSlide = slides[activeSlide];
   const backgroundImagesSafe = useMemo(
@@ -156,6 +165,14 @@ export const HeroSection = ({ customServices }: HeroSectionProps) => {
     }, sliderSide.interval ?? 2600);
     return () => clearInterval(timer);
   }, [sliderSide, sideSliderImages]);
+
+  useEffect(() => {
+    if (PRODUCT_STRIP_IMAGES.length <= 1) return undefined;
+    const timer = setInterval(() => {
+      setProductStripFrame((prev) => (prev + 1) % PRODUCT_STRIP_IMAGES.length);
+    }, 3500);
+    return () => clearInterval(timer);
+  }, []);
 
   // Initialize YouTube Player API for the hero video iframe
   useEffect(() => {
@@ -348,6 +365,39 @@ export const HeroSection = ({ customServices }: HeroSectionProps) => {
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen
         />
+      </div>
+
+      <div className="border-t border-white/20 bg-gradient-to-r from-[#eaf4ff] via-white to-[#f7eaff] px-4 py-8 sm:px-8 sm:py-10">
+        <div className="mx-auto flex max-w-6xl flex-col items-center gap-8 sm:flex-row sm:items-center sm:justify-between">
+          <div className="max-w-xl text-center sm:text-left">
+            <h2 className="text-xl font-semibold text-[#003366] sm:text-2xl md:text-3xl">
+              Engineered Gas &amp; Pressure Control Skids
+            </h2>
+            <p className="mt-2 text-xs font-medium text-[#3b4a60] sm:text-sm md:text-base">
+              REU designs, builds and commissions complete PRS, cylinder cascade and safety valve packages
+              for demanding process industries.
+            </p>
+            <p className="mt-1 text-xs text-[#62718a] sm:text-sm">
+              From concept to site handover, one team owns your performance, safety and compliance.
+            </p>
+          </div>
+
+          <div className="relative h-40 w-full max-w-md overflow-hidden sm:h-100 sm:max-w-lg md:h-120 md:max-w-2xl">
+            {PRODUCT_STRIP_IMAGES.map((src, idx) => (
+              <Image
+                key={src}
+                src={src}
+                alt="REU product skid visual"
+                fill
+                sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 35vw"
+                className={`object-contain transition-opacity duration-700 ${
+                  idx === productStripFrame ? "opacity-100" : "opacity-0"
+                }`}
+                priority={idx === 0}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
