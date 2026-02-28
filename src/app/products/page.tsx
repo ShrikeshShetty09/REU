@@ -23,6 +23,7 @@ const montserrat = Montserrat({ subsets: ["latin"], weight: ["300", "400", "500"
 
 export default function ProductsPage() {
   const [selectedSlug, setSelectedSlug] = useState<string>(allProductLinks[0]?.slug ?? "");
+  const [isMobileOverlayOpen, setIsMobileOverlayOpen] = useState(false);
 
   const selectedProduct = useMemo(() => {
     if (!selectedSlug) return null;
@@ -42,7 +43,7 @@ export default function ProductsPage() {
           </p>
         </div>
 
-        <div className="flex gap-6 items-start">
+        <div className="flex flex-col gap-6 items-start md:flex-row">
           {/* Left: product list */}
           <div className="flex-none min-w-[260px] max-w-sm space-y-4 overflow-hidden rounded-[32px] border border-[#f0d9ff] bg-white/95 p-5 shadow">
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#5d075f]">Product list</p>
@@ -53,7 +54,12 @@ export default function ProductsPage() {
                   <button
                     key={product.slug}
                     type="button"
-                    onClick={() => setSelectedSlug(product.slug)}
+                    onClick={() => {
+                      setSelectedSlug(product.slug);
+                      if (typeof window !== "undefined" && window.innerWidth < 768) {
+                        setIsMobileOverlayOpen(true);
+                      }
+                    }}
                     className="flex w-full items-center justify-between text-left transition"
                   >
                     <span
@@ -73,7 +79,7 @@ export default function ProductsPage() {
           </div>
 
           {/* Right: product detail preview */}
-          <div className="flex-1 min-w-0 space-y-6 rounded-[32px] border border-[#f0d9ff] bg-white/95 p-6 shadow-[0_20px_80px_-40px_rgba(122,2,142,.4)]">
+          <div className="hidden flex-1 min-w-0 space-y-6 rounded-[32px] border border-[#f0d9ff] bg-white/95 p-6 shadow-[0_20px_80px_-40px_rgba(122,2,142,.4)] md:block">
             {selectedProduct ? (
               <>
                 <div className="flex flex-col gap-6 md:flex-row md:items-start">
@@ -112,6 +118,58 @@ export default function ProductsPage() {
           </div>
         </div>
       </section>
+
+      {/* Mobile overlay for product preview */}
+      {isMobileOverlayOpen && selectedProduct && (
+        <div
+          className="fixed inset-0 z-40 flex items-center justify-center bg-black/40 px-4 backdrop-blur-sm md:hidden"
+          onClick={() => setIsMobileOverlayOpen(false)}
+        >
+          <div
+            className="relative w-full max-w-md rounded-[28px] border border-[#f0d9ff] bg-white/95 p-5 shadow-xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              className="absolute -right-2 -top-2 flex h-7 w-7 items-center justify-center rounded-full bg-[#f5e6ff] text-xs text-[#5d075f] shadow-lg"
+              aria-label="Close"
+              onClick={() => setIsMobileOverlayOpen(false)}
+            >
+              ✕
+            </button>
+
+            <div className="space-y-4">
+              <div className="relative aspect-[4/3] w-full">
+                <ProductImageSlider
+                  images={productImagesBySlug[selectedProduct.slug] ?? ["/images/hero-1.png"]}
+                  alt={selectedProduct.label}
+                  variant="preview"
+                />
+              </div>
+              <div className="space-y-3">
+                <p className="text-[0.7rem] uppercase tracking-[0.35em] text-[#a605c7]">Product overview</p>
+                <h2 className="text-lg font-bold text-[#360236]">{selectedProduct.label}</h2>
+                <div className="flex flex-wrap gap-2">
+                  <Link
+                    href={`/products/${selectedProduct.slug}`}
+                    className="inline-flex flex-1 justify-center rounded-full bg-gradient-to-r from-[#ff96ff] to-[#a605c7] px-4 py-2 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-white shadow-lg"
+                    onClick={() => setIsMobileOverlayOpen(false)}
+                  >
+                    View details
+                  </Link>
+                  <Link
+                    href="/service-support/product-enquiry"
+                    className="inline-flex flex-1 justify-center rounded-full border border-[#a605c7]/30 px-4 py-2 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-[#a605c7]"
+                    onClick={() => setIsMobileOverlayOpen(false)}
+                  >
+                    Enquiry
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
