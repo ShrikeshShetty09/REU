@@ -19,6 +19,8 @@ const clients: Client[] = [
   { name: "Zydus LifeScience Limited", logo: "/images/client_logo/Zydus_Lifesciences-removebg-preview.png" },
   { name: "ViyashLife Sciences PvtLtd", logo: "/images/client_logo/viyash-life-sciences-pvt-ltd.png" },
   { name: "Schreiber Dynamics pvt ltd", logo: "/images/client_logo/schreiber-logo.png" },
+  { name: "Atul", logo: "/images/client_logo/atul.png" },
+  { name: "Govind", logo: "/images/client_logo/Govind.png" },
 ];
 
 const getInitials = (name: string) => {

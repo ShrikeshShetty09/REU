@@ -121,18 +121,34 @@ const productData: DetailItem[] = [
   },
   {
     category: "product",
-    label: "Ball Valves & Non Return Valves etc.",
-    slug: "ball-valves-non-return",
+    label: "Ball Valves",
+    slug: "ball-valves",
     description:
-      "Range of isolation and check valves for gas, air and process utilities. Options include full-bore ball valves, swing checks, wafer checks and customized NRVs in various pressure classes and materials.",
+      "Full-bore and reduced-bore ball valves for isolation duties on gas, air and utility lines. Offered in different pressure classes, materials and end connections to suit plant standards.",
     summary:
-      "Full-bore ball valves, swing checks and non-return valves in carbon steel, stainless steel and special alloys. Engineered for leak-tight shutoff, low pressure drop and dependable backflow protection.",
+      "Fire-safe, leak-tight ball valves engineered for low pressure drop and reliable shutoff across a wide range of industrial gas and utility services.",
     highlights: [
       "Fire-safe and anti-blowout stem designs",
       "API / ANSI dimensional standards and pressure ratings",
       "Manual, gear and pneumatic / electric actuation packages",
       "End connections including screwed, flanged and socket weld",
-      "Suitable for utility distribution as well as process duties",
+      "Suitable for isolation on utility and process lines",
+    ],
+  },
+  {
+    category: "product",
+    label: "Non Return Valves",
+    slug: "non-return-valves",
+    description:
+      "Non return valves (NRVs) and check valves that prevent reverse flow in gas and utility distribution networks. Available as swing, wafer and inline designs in multiple sizes and pressure classes.",
+    summary:
+      "Compact, dependable non return valves that protect compressors, cylinders and downstream equipment from backflow and pressure surges.",
+    highlights: [
+      "Swing, wafer and inline NRV configurations",
+      "Optimized internals for low cracking pressure and minimal pressure drop",
+      "Bodies in carbon steel, stainless steel and other alloys",
+      "Flanged, threaded and wafer-style end connections",
+      "Suited for gas, air and selected liquid services",
     ],
   },
   {
@@ -217,6 +233,39 @@ const productData: DetailItem[] = [
   },
   {
     category: "product",
+    label: "HSD DAQ Modules",
+    slug: "hsd-daq-modules",
+    description:
+      "The Senkox HSD DAQ Module family is a variety of different detection control modules, each of which acts as an interface between a DCS or fire alarm control system and the Senkox HSD Linear Heat Sensors (LHS). A DAQ module monitors and processes the signals generated from the HSD LHS cables.",
+    summary:
+      "DAQ modules with relay outputs, analog outputs (420 mA or 0 1 5 V) and serial communication ports (RS485 / RS232, Modbus/RTU) for seamless integration of HSD Linear Heat Sensors with DCS or fire alarm systems.",
+    highlights: [
+      "Dedicated interface modules for Senkox HSD Linear Heat Sensors",
+      "Relay outputs and analog 420 mA / 0 1 5 V signaling",
+      "RS485 / RS232 Modbus/RTU communication options",
+      "Easily integrated with plant DCS or fire alarm panels",
+      "Continuous monitoring and processing of LHS cable signals",
+    ],
+  },
+  {
+    category: "product",
+    label: "HSD Linear Heat Sensor cables",
+    slug: "hsd-linear-heat-sensor-cables",
+    description:
+      "Second-generation Senkox HSD Linear Heat Sensors (LHS) designed for comprehensive hot spot detection with improved materials and processing technology. Sensors are flexible, durable and suitable for demanding environments.",
+    summary:
+      "Flexible, rugged HSD Linear Heat Sensor cables that withstand high temperature, abrasion and pressure while remaining intrinsically safe for hazardous locations.",
+    highlights: [
+      "Innovative sensor materials and processes for stable function and uniform sensitivity",
+      "Wide operating temperature range from -40 b0C to 600 b0C",
+      "No damage to sensors after alarm  13 re-usable design",
+      "Withstand high abrasion and high-pressure conditions",
+      "Flexible, rugged sensor cable suitable for harsh environments",
+      "Intrinsically safe construction for hazardous areas",
+    ],
+  },
+  {
+    category: "product",
     label: "Utility & Lab Fume Hood Piping",
     slug: "utility-lab-fume-hood-piping",
     description:
@@ -282,17 +331,30 @@ export const productImagesBySlug: Record<string, string[]> = {
     "/images/products/Safety Valve with Vaccume.png",
   ],
   "high-pressure-regulators": [
-    "/images/products/H2 PRS.png",
-    "/images/products/O2 PRS.png",
+    "/images/products/hpregulators1.png",
+    "/images/products/hpregulators2.png",
   ],
   "high-pressure-cylinder-cascade": ["/images/products/hydrogen-gas-cylinder-cascade.png"],
   "centrifugal-blanketing": ["/images/products/centrifugal_blanketing.png"],
   "back-pressure-valve": ["/images/products/BPRV.png"],
-  "ball-valves-non-return": ["/images/products/Isolation_Block_valve.png"],
-  "gas-detection-system": ["/images/products/Gas detector system.png"],
-  "utility-lab-fume-hood-piping": ["/images/products/laboratory-gas-tubing.png"],
+  "gas-pipeline": ["/images/products/gaspipeline.png"],
+  "ball-valves": ["/images/products/ballvalve1.png", "/images/products/ballvalve2.png"],
+  "non-return-valves": ["/images/products/nrv1.png", "/images/products/nrv2.png"],
+  "gas-detection-system": [
+    "/images/products/gas_detection1.png",
+    "/images/products/gas_detection2.png",
+    "/images/products/gas_detection3.png",
+    "/images/products/gas_detection4.png",
+  ],
+  "utility-lab-fume-hood-piping": [
+    "/images/products/utilityFumehood1.png",
+    "/images/products/utilityFumehood2.png",
+    "/images/products/utilityFumehood3.png",
+  ],
   "gas-purification-system": ["/images/products/Gas purification gas control box & gas detector.png"],
   "temperature-detection-system": ["/images/products/temperature_detection.png"],
+  "hsd-daq-modules": ["/images/products/tds_HSD_DAQ_Modules.png"],
+  "hsd-linear-heat-sensor-cables": ["/images/products/tds_HSD_Linear_Heat_Sensor_cables.png"],
   "flow-meter": ["/images/products/reu_flow_meter.png"],
   "rota-meter": ["/images/products/rota_meter.png"],
 };
@@ -362,7 +424,8 @@ const industryDefinitions: IndustryDefinition[] = [
       "pressure-reducing-systems",
       "back-pressure-valve",
       "safety-valves",
-      "ball-valves-non-return",
+      "ball-valves",
+      "non-return-valves",
     ],
   },
   {
@@ -405,7 +468,7 @@ const industryDefinitions: IndustryDefinition[] = [
     summary:
       "Fabrication shops and OEM floors count on our piping, compressor, and safety solutions for day-to-day reliability.",
     image: "/images/reu_IndustrialWorkshop.png",
-    productSlugs: ["gas-pipeline", "ball-valves-non-return", "high-pressure-regulators"],
+    productSlugs: ["gas-pipeline", "ball-valves", "non-return-valves", "high-pressure-regulators"],
   },
   {
     label: "Steel Industry",
@@ -505,8 +568,12 @@ export const getDetailBySlug = (slug: string) => detailContent[slug];
 export const getRelatedByCategory = (category: DetailItem["category"], excludeSlug?: string) =>
   allDetails.filter((item) => item.category === category && item.slug !== excludeSlug);
 
-const firstColumnProducts = productData.slice(0, 8);
-const secondColumnProducts = productData.slice(8);
+const primaryProductData = productData.filter(
+  (item) => item.slug !== "hsd-daq-modules" && item.slug !== "hsd-linear-heat-sensor-cables"
+);
+
+const firstColumnProducts = primaryProductData.slice(0, 8);
+const secondColumnProducts = primaryProductData.slice(8);
 
 export const productColumns: MenuColumn[] = [
   {

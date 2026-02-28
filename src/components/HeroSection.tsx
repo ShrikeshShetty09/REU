@@ -355,34 +355,35 @@ export const HeroSection = ({ customServices }: HeroSectionProps) => {
   };
 
   return (
-    <section className="relative isolate w-full overflow-hidden rounded-[32px] border border-white/20">
-      <div className="relative w-full" style={{ paddingTop: "45%" }}>
-        <iframe
-          className="absolute inset-0 h-full w-full"
-          ref={iframeRef}
-          src="https://www.youtube.com/embed/PEMZdTYtxC0?autoplay=1&controls=0&rel=0&showinfo=0&modestbranding=1&loop=1&playlist=PEMZdTYtxC0&enablejsapi=1"
-          title="REU Equipment Video"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowFullScreen
-        />
-      </div>
-
-      <div className="border-t border-white/20 bg-gradient-to-r from-[#eaf4ff] via-white to-[#f7eaff] px-4 py-8 sm:px-8 sm:py-10">
-        <div className="mx-auto flex max-w-6xl flex-col items-center gap-8 sm:flex-row sm:items-center sm:justify-between">
-          <div className="max-w-xl text-center sm:text-left">
-            <h2 className="text-xl font-semibold text-[#003366] sm:text-2xl md:text-3xl">
-              Engineered Gas &amp; Pressure Control Skids
-            </h2>
-            <p className="mt-2 text-xs font-medium text-[#3b4a60] sm:text-sm md:text-base">
-              REU designs, builds and commissions complete PRS, cylinder cascade and safety valve packages
-              for demanding process industries.
-            </p>
-            <p className="mt-1 text-xs text-[#62718a] sm:text-sm">
-              From concept to site handover, one team owns your performance, safety and compliance.
-            </p>
+    <section className="relative isolate w-full overflow-hidden rounded-[32px] border border-white/20 bg-gradient-to-r from-[#eaf4ff] via-white to-[#f7eaff] px-4 py-8 sm:px-8 sm:py-10">
+      <div className="mx-auto flex max-w-6xl flex-col gap-8 md:flex-row">
+        {/* Left column: Expo image + smaller video, both aligned to left */}
+        <div className="flex w-full flex-col gap-4 md:w-1/2">
+          <div className="relative h-52 w-full overflow-hidden rounded-[24px] border border-white/40 bg-white/10 shadow-md sm:h-60 md:h-72">
+            <Image
+              src="/images/expo_images/chemtch_expo_Mumbai1.jpeg"
+              alt="Chemtch Expo Mumbai"
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover"
+            />
           </div>
 
-          <div className="relative h-40 w-full max-w-md overflow-hidden sm:h-100 sm:max-w-lg md:h-120 md:max-w-2xl">
+          <div className="relative h-32 w-full overflow-hidden rounded-[24px] border border-white/40 bg-black/80 shadow-md sm:h-40 md:h-52">
+            <iframe
+              className="absolute inset-0 h-full w-full"
+              ref={iframeRef}
+              src="https://www.youtube.com/embed/PEMZdTYtxC0?autoplay=1&controls=0&rel=0&showinfo=0&modestbranding=1&loop=1&playlist=PEMZdTYtxC0&enablejsapi=1"
+              title="REU Equipment Video"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            />
+          </div>
+        </div>
+
+        {/* Right column: Product strip slider + descriptive text */}
+        <div className="flex w-full flex-col justify-center gap-5 md:w-1/2">
+          <div className="relative h-32 w-full overflow-hidden rounded-[32px] border border-white/40 bg-white/40 shadow-md sm:h-40 md:h-64">
             {PRODUCT_STRIP_IMAGES.map((src, idx) => (
               <Image
                 key={src}
@@ -396,6 +397,19 @@ export const HeroSection = ({ customServices }: HeroSectionProps) => {
                 priority={idx === 0}
               />
             ))}
+          </div>
+
+          <div className="max-w-xl text-center md:text-left">
+            <h2 className="text-xl font-semibold text-[#003366] sm:text-2xl md:text-3xl">
+              Engineered Gas &amp; Pressure Control Skids
+            </h2>
+            <p className="mt-2 text-xs font-medium text-[#3b4a60] sm:text-sm md:text-base">
+              REU designs, builds and commissions complete PRS, cylinder cascade and safety valve packages for demanding
+              process industries.
+            </p>
+            <p className="mt-1 text-xs text-[#62718a] sm:text-sm">
+              From concept to site handover, one team owns your performance, safety and compliance.
+            </p>
           </div>
         </div>
       </div>

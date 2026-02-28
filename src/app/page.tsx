@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { companyColumns, detailContent, industriesWeServe } from "@/data/siteContent";
-import { featuredClients } from "@/data/clients";
 import { HeroSection } from "@/components/HeroSection";
 
 const productTableRows = [
@@ -33,20 +32,25 @@ const customServices = [
   },
 ];
 
-const marqueeClientNames = [
-  "Amptronics Techno Pvt. Ltd.",
-  "Anthea Aromatics Pvt. Ltd.",
-  "Aarti Industries Ltd.",
-  "Alembic Pharma",
-  "Alkyl Amines Chemicals Ltd. (Group)",
-  "Cipla Ltd. (All Group)",
-  "Oil and Natural Gas Corporation (ONGC)",
-  "NTPC Limited",
+// Four flagship clients for the homepage strip (taken from the main clients grid)
+const homepageClients = [
+  {
+    name: "Amptronics Techno Pvt. Ltd.",
+    logo: "/images/client_logo/Amprotnics_Techno_Pvt_Ltd.png",
+  },
+  {
+    name: "Gatik synthesis LLP",
+    logo: "/images/client_logo/Gatik synthesis LLP.png",
+  },
+  {
+    name: "HikalLTD",
+    logo: "/images/client_logo/HikalLTD.png",
+  },
+  {
+    name: "Zydus LifeScience Limited",
+    logo: "/images/client_logo/Zydus_Lifesciences-removebg-preview.png",
+  },
 ];
-
-const marqueeClients = marqueeClientNames
-  .map((name) => featuredClients.find((client) => client.name === name))
-  .filter((client): client is NonNullable<typeof client> => Boolean(client?.logo));
 
 const leadershipDetail = detailContent["leadership-team"];
 
@@ -178,10 +182,10 @@ export default function Home() {
           </div>
           <div className="rounded-[40px] border border-white/60 bg-white/95 p-8 shadow-[0_30px_120px_-60px_rgba(122,2,142,.2)]">
             <div className="flex flex-wrap items-center justify-center gap-10">
-              {marqueeClients.slice(0, 4).map((client) => (
+              {homepageClients.map((client) => (
                 <div key={client.name} className="flex flex-col items-center gap-3 text-center">
                   <div className="relative h-12 w-28">
-                    <Image src={client.logo!} alt={client.name} fill className="object-contain" sizes="112px" />
+                    <Image src={client.logo} alt={client.name} fill className="object-contain" sizes="112px" />
                   </div>
                   <p className="text-sm font-semibold text-[#5d075f]">{client.name}</p>
                 </div>

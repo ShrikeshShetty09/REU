@@ -13,9 +13,7 @@ function getCertificates(): CertificateItem[] {
     const entries = fs.readdirSync(dir, { withFileTypes: true });
     return entries
       .filter((entry) => entry.isFile())
-      // Exclude REU Pan card from certificates listing
-      .filter((entry) => entry.name.toLowerCase() !== "reu pan card.pdf")
-      // Only keep image certificates for clear display
+      // Use only image certificates (including pan.png, gst.png, etc.)
       .filter((entry) => /\.(png|jpe?g|webp|gif|bmp|svg)$/i.test(entry.name))
       .map((entry) => ({
         name: entry.name,

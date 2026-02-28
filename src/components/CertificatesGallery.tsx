@@ -20,28 +20,39 @@ export const CertificatesGallery = ({ certificates }: Props) => {
   return (
     <>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {certificates.map((file) => (
-          <button
-            key={file.name}
-            type="button"
-            onClick={() => setActive(file)}
-            className="flex flex-col items-center gap-4 rounded-[24px] border border-[#f0d9ff] bg-white/95 p-6 text-center text-sm text-foreground/80 shadow hover:-translate-y-1 hover:shadow-lg transition cursor-pointer"
-          >
-            <div
-              className="relative w-full overflow-hidden rounded-2xl bg-[#faf5ff]"
-              style={{ height: 420 }}
+        {certificates.map((file) => {
+          const isPdf = file.name.toLowerCase().endsWith(".pdf");
+          return (
+            <button
+              key={file.name}
+              type="button"
+              onClick={() => setActive(file)}
+              className="flex flex-col items-center gap-4 rounded-[24px] border border-[#f0d9ff] bg-white/95 p-6 text-center text-sm text-foreground/80 shadow hover:-translate-y-1 hover:shadow-lg transition cursor-pointer"
             >
-              <Image
-                src={file.href}
-                alt={file.name}
-                fill
-                className="object-contain cursor-pointer"
-                sizes="(max-width:768px) 100vw, 33vw"
-              />
-            </div>
-            <span className="break-all">{file.name.replace(/\.[^/.]+$/, "")}</span>
-          </button>
-        ))}
+              <div
+                className="relative w-full overflow-hidden rounded-2xl bg-[#faf5ff]"
+                style={{ height: 420 }}
+              >
+                {isPdf ? (
+                  <iframe
+                    src={file.href}
+                    title={file.name}
+                    className="h-full w-full"
+                  />
+                ) : (
+                  <Image
+                    src={file.href}
+                    alt={file.name}
+                    fill
+                    className="object-contain cursor-pointer"
+                    sizes="(max-width:768px) 100vw, 33vw"
+                  />
+                )}
+              </div>
+              <span className="break-all">{file.name.replace(/\.[^/.]+$/, "")}</span>
+            </button>
+          );
+        })}
       </div>
 
       {active && (
@@ -58,13 +69,21 @@ export const CertificatesGallery = ({ certificates }: Props) => {
               ✕
             </button>
             <div className="relative h-[70vh] w-full">
-              <Image
-                src={active.href}
-                alt={active.name}
-                fill
-                className="object-contain"
-                sizes="(max-width:1024px) 100vw, 60vw"
-              />
+              {active.name.toLowerCase().endsWith(".pdf") ? (
+                <iframe
+                  src={active.href}
+                  title={active.name}
+                  className="h-full w-full rounded-2xl border border-[#f0d9ff]"
+                />
+              ) : (
+                <Image
+                  src={active.href}
+                  alt={active.name}
+                  fill
+                  className="object-contain"
+                  sizes="(max-width:1024px) 100vw, 60vw"
+                />
+              )}
             </div>
             <p className="mt-3 text-center text-sm font-medium text-[#360236] break-all">
               {active.name.replace(/\.[^/.]+$/, "")}

@@ -30,6 +30,11 @@ export default function ProductsPage() {
     return detailContent[selectedSlug];
   }, [selectedSlug]);
 
+  const temperatureSubProducts =
+    selectedProduct?.slug === "temperature-detection-system"
+      ? [detailContent["hsd-daq-modules"], detailContent["hsd-linear-heat-sensor-cables"]].filter(Boolean)
+      : [];
+
   return (
     <main className={`${montserrat.className} pb-20 pt-16`}>
       <section className="mx-auto max-w-6xl space-y-10 px-6">
@@ -81,7 +86,44 @@ export default function ProductsPage() {
           {/* Right: product detail preview */}
           <div className="hidden flex-1 min-w-0 space-y-6 rounded-[32px] border border-[#f0d9ff] bg-white/95 p-6 shadow-[0_20px_80px_-40px_rgba(122,2,142,.4)] md:block">
             {selectedProduct ? (
-              <>
+              selectedProduct.slug === "temperature-detection-system" && temperatureSubProducts.length === 2 ? (
+                <div className="space-y-4">
+                  <p className="text-xs uppercase tracking-[0.4em] text-[#a605c7]">Product overview</p>
+                  <div className="grid gap-6 md:grid-cols-2">
+                    {temperatureSubProducts.map((sub) => (
+                      <div
+                        key={sub.slug}
+                        className="space-y-4 rounded-[28px] border border-[#f0d9ff] bg-white/95 p-4 shadow-sm"
+                      >
+                        <div className="relative aspect-[4/3] w-full">
+                          <ProductImageSlider
+                            images={productImagesBySlug[sub.slug] ?? ["/images/hero-1.png"]}
+                            alt={sub.label}
+                            variant="preview"
+                          />
+                        </div>
+                        <div className="space-y-3">
+                          <h2 className="text-lg font-bold text-[#360236]">{sub.label}</h2>
+                          <div className="flex flex-wrap gap-3">
+                            <Link
+                              href={`/products/${sub.slug}`}
+                              className="inline-flex rounded-full bg-gradient-to-r from-[#ff96ff] to-[#a605c7] px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-lg"
+                            >
+                              View details
+                            </Link>
+                            <Link
+                              href="/service-support/product-enquiry"
+                              className="inline-flex rounded-full border border-[#a605c7]/30 px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.18em] text-[#a605c7]"
+                            >
+                              Enquiry
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
                 <div className="flex flex-col gap-6 md:flex-row md:items-start">
                   <div className="md:w-1/2">
                     <div className="relative aspect-[4/3] w-full">
@@ -111,7 +153,7 @@ export default function ProductsPage() {
                     </div>
                   </div>
                 </div>
-              </>
+              )
             ) : (
               <p className="text-sm text-foreground/60">Select a product from the list to view its details.</p>
             )}
@@ -139,33 +181,76 @@ export default function ProductsPage() {
             </button>
 
             <div className="space-y-4">
-              <div className="relative aspect-[4/3] w-full">
-                <ProductImageSlider
-                  images={productImagesBySlug[selectedProduct.slug] ?? ["/images/hero-1.png"]}
-                  alt={selectedProduct.label}
-                  variant="preview"
-                />
-              </div>
-              <div className="space-y-3">
-                <p className="text-[0.7rem] uppercase tracking-[0.35em] text-[#a605c7]">Product overview</p>
-                <h2 className="text-lg font-bold text-[#360236]">{selectedProduct.label}</h2>
-                <div className="flex flex-wrap gap-2">
-                  <Link
-                    href={`/products/${selectedProduct.slug}`}
-                    className="inline-flex flex-1 justify-center rounded-full bg-gradient-to-r from-[#ff96ff] to-[#a605c7] px-4 py-2 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-white shadow-lg"
-                    onClick={() => setIsMobileOverlayOpen(false)}
-                  >
-                    View details
-                  </Link>
-                  <Link
-                    href="/service-support/product-enquiry"
-                    className="inline-flex flex-1 justify-center rounded-full border border-[#a605c7]/30 px-4 py-2 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-[#a605c7]"
-                    onClick={() => setIsMobileOverlayOpen(false)}
-                  >
-                    Enquiry
-                  </Link>
+              {selectedProduct.slug === "temperature-detection-system" && temperatureSubProducts.length === 2 ? (
+                <div className="space-y-4">
+                  <p className="text-[0.7rem] uppercase tracking-[0.35em] text-[#a605c7] text-center">Product overview</p>
+                  <div className="space-y-4">
+                    {temperatureSubProducts.map((sub) => (
+                      <div
+                        key={sub.slug}
+                        className="space-y-3 rounded-[24px] border border-[#f0d9ff] bg-white/95 p-3"
+                      >
+                        <div className="relative aspect-[4/3] w-full">
+                          <ProductImageSlider
+                            images={productImagesBySlug[sub.slug] ?? ["/images/hero-1.png"]}
+                            alt={sub.label}
+                            variant="preview"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <h2 className="text-base font-bold text-[#360236]">{sub.label}</h2>
+                          <div className="flex flex-wrap gap-2">
+                            <Link
+                              href={`/products/${sub.slug}`}
+                              className="inline-flex flex-1 justify-center rounded-full bg-gradient-to-r from-[#ff96ff] to-[#a605c7] px-4 py-2 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-white shadow-lg"
+                              onClick={() => setIsMobileOverlayOpen(false)}
+                            >
+                              View details
+                            </Link>
+                            <Link
+                              href="/service-support/product-enquiry"
+                              className="inline-flex flex-1 justify-center rounded-full border border-[#a605c7]/30 px-4 py-2 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-[#a605c7]"
+                              onClick={() => setIsMobileOverlayOpen(false)}
+                            >
+                              Enquiry
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <>
+                  <div className="relative aspect-[4/3] w-full">
+                    <ProductImageSlider
+                      images={productImagesBySlug[selectedProduct.slug] ?? ["/images/hero-1.png"]}
+                      alt={selectedProduct.label}
+                      variant="preview"
+                    />
+                  </div>
+                  <div className="space-y-3">
+                    <p className="text-[0.7rem] uppercase tracking-[0.35em] text-[#a605c7]">Product overview</p>
+                    <h2 className="text-lg font-bold text-[#360236]">{selectedProduct.label}</h2>
+                    <div className="flex flex-wrap gap-2">
+                      <Link
+                        href={`/products/${selectedProduct.slug}`}
+                        className="inline-flex flex-1 justify-center rounded-full bg-gradient-to-r from-[#ff96ff] to-[#a605c7] px-4 py-2 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-white shadow-lg"
+                        onClick={() => setIsMobileOverlayOpen(false)}
+                      >
+                        View details
+                      </Link>
+                      <Link
+                        href="/service-support/product-enquiry"
+                        className="inline-flex flex-1 justify-center rounded-full border border-[#a605c7]/30 px-4 py-2 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-[#a605c7]"
+                        onClick={() => setIsMobileOverlayOpen(false)}
+                      >
+                        Enquiry
+                      </Link>
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>

@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 
 const supportOptions = [
@@ -30,6 +31,19 @@ const supportOptions = [
 
 export default function ServiceSupportPage() {
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
+  const [activeService, setActiveService] = useState<"compressor" | "gas-detection" | null>(null);
+
+  // Prevent background scrolling when overlay is open
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    if (activeService) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = originalOverflow;
+      };
+    }
+  }, [activeService]);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -158,23 +172,80 @@ export default function ServiceSupportPage() {
             </div>
 
             <div className="grid gap-6 md:grid-cols-2">
-              <div className="space-y-3 rounded-[28px] border border-white/30 bg-white/10 p-6 text-sm text-white/90">
-                <h3 className="text-lg font-semibold">Compressor &amp; Supply</h3>
-                <p>
-                  Support covering compressor selection, supply and lifecycle care for air and gas systems, aligned to
-                  energy and reliability objectives.
-                </p>
-              </div>
-              <div className="space-y-3 rounded-[28px] border border-white/30 bg-white/10 p-6 text-sm text-white/90">
+              <button
+                type="button"
+                onClick={() => setActiveService("compressor")}
+                className="rounded-[28px] border border-white/30 bg-white/10 p-6 text-left text-sm text-white/90 transition hover:bg-white/15 focus:outline-none focus:ring-2 focus:ring-white/60"
+              >
+                <h3 className="text-lg font-semibold">Compressor Service, Supply and Spares</h3>
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveService("gas-detection")}
+                className="rounded-[28px] border border-white/30 bg-white/10 p-6 text-left text-sm text-white/90 transition hover:bg-white/15 focus:outline-none focus:ring-2 focus:ring-white/60"
+              >
                 <h3 className="text-lg font-semibold">Gas Detection System</h3>
-                <p>
-                  Fixed gas detection solutions including sensors, controllers and alarms with commissioning and
-                  ongoing calibration / AMC support.
-                </p>
-              </div>
+              </button>
             </div>
           </div>
         </section>
+
+        {activeService && (
+          <div
+            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 px-4 backdrop-blur-sm"
+            onClick={() => setActiveService(null)}
+          >
+            <div
+              className={`relative w-full max-w-5xl max-h-[75vh] md:max-h-[60vh] overflow-y-auto rounded-[32px] border border-white/20 bg-black/80 p-6 text-white shadow-2xl max-md:[&::-webkit-scrollbar]:hidden max-md:scrollbar-hide ${
+                activeService === "gas-detection" ? "mt-10 md:mt-0" : "mt-8 md:mt-0"
+              }`}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                type="button"
+                className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-sm font-bold text-black shadow-lg"
+                onClick={() => setActiveService(null)}
+                aria-label="Close"
+              >
+                ✕
+              </button>
+
+              {activeService === "compressor" && (
+                <div className="space-y-4">
+                  <h3 className="text-2xl font-semibold">Compressor Service, Supply and Spares</h3>
+                  <p className="text-sm text-white/80">
+                    Support covering compressor selection, supply and lifecycle care for air and gas systems, aligned to
+                    energy and reliability objectives.
+                  </p>
+                  <div className="grid gap-3 md:gap-4 md:grid-cols-2">
+                    {["/images/compressor/1-hp-110-liter-reciprocating-air-compressor.jpg","/images/compressor/7.5 HP.jpg","/images/compressor/SC-50.jpg","/images/compressor/TC300.jpg"].map((src) => (
+                      <div key={src} className="relative h-28 md:h-32 w-full overflow-hidden rounded-2xl bg-white/10">
+                        <Image src={src} alt="Compressor" fill className="object-contain" sizes="(max-width:768px) 100vw, 50vw" />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {activeService === "gas-detection" && (
+                <div className="space-y-4">
+                  <h3 className="text-2xl font-semibold">Gas Detection System</h3>
+                  <p className="text-sm text-white/80">
+                    Fixed gas detection solutions including sensors, controllers and alarms with commissioning and
+                    ongoing calibration / AMC support.
+                  </p>
+                  <div className="grid gap-3 md:gap-4 md:grid-cols-2">
+                    {["/images/products/Gas detector system.png","/images/products/gas_detection1.png","/images/products/gas_detection2.png","/images/products/gas_detection3.png","/images/products/gas_detection4.png"].map((src) => (
+                      <div key={src} className="relative h-28 md:h-32 w-full overflow-hidden rounded-2xl bg-white/10">
+                        <Image src={src} alt="Gas Detection" fill className="object-contain" sizes="(max-width:768px) 100vw, 50vw" />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
