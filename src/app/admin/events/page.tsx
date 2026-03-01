@@ -27,7 +27,7 @@ export default function AdminEventsPage() {
     if (!databaseId || !collectionId) return;
     async function load() {
       try {
-        const res = await databases.listDocuments(databaseId, collectionId);
+        const res = await databases.listDocuments(databaseId!, collectionId!);
         setItems(res.documents as any);
       } catch (err: any) {
         console.error(err);
@@ -56,7 +56,7 @@ export default function AdminEventsPage() {
         }
       }
 
-      const created = await databases.createDocument(databaseId, collectionId, ID.unique(), {
+      const created = await databases.createDocument(databaseId!, collectionId!, ID.unique(), {
         name,
         imageUrl: imageUrls[0],
         imageUrls,
@@ -77,7 +77,7 @@ export default function AdminEventsPage() {
     if (!databaseId || !collectionId) return;
     if (!confirm("Delete this event?")) return;
     try {
-      await databases.deleteDocument(databaseId, collectionId, id);
+      await databases.deleteDocument(databaseId!, collectionId!, id);
       setItems((prev) => prev.filter((item) => item.$id !== id));
     } catch (err) {
       console.error(err);

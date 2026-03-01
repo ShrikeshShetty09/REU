@@ -16,7 +16,7 @@ export default function AdminEnquiryPage() {
     if (!databaseId || !collectionId) return;
     async function load() {
       try {
-        const res = await databases.listDocuments(databaseId, collectionId);
+        const res = await databases.listDocuments(databaseId!, collectionId!);
         setItems(res.documents as any);
       } catch (err: any) {
         console.error(err);

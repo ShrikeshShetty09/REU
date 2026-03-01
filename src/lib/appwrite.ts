@@ -47,7 +47,7 @@ export async function getClientsFromDb(): Promise<{ id: string; name: string; lo
   const { databases } = createServerClient();
 
   try {
-    const res = await databases.listDocuments(databaseId, process.env.APPWRITE_CLIENTS_COLLECTION_ID as string);
+    const res = await databases.listDocuments(databaseId!, process.env.APPWRITE_CLIENTS_COLLECTION_ID as string);
 
     return res.documents.map((doc: any) => {
       const fileId = doc.logoFileId as string | undefined;
@@ -81,7 +81,7 @@ export async function getQualityFromDb(): Promise<{ id: string; name: string; im
   const { databases } = createServerClient();
 
   try {
-    const res = await databases.listDocuments(databaseId, process.env.APPWRITE_QUALITY_COLLECTION_ID as string);
+    const res = await databases.listDocuments(databaseId!, process.env.APPWRITE_QUALITY_COLLECTION_ID as string);
 
     return res.documents.map((doc: any) => {
       const raw = (doc.imageUrl as string | undefined) ?? (doc.imageFileId as string | undefined);
@@ -107,13 +107,13 @@ export async function getQualityFromDb(): Promise<{ id: string; name: string; im
   }
 }
 
-export async function getEventsFromDb(): Promise<{ id: string; name: string; imageUrls: string[] }> {
+export async function getEventsFromDb(): Promise<{ id: string; name: string; imageUrls: string[] }[]> {
   if (!databaseId || !projectId || !endpoint) return [];
 
   const { databases } = createServerClient();
 
   try {
-    const res = await databases.listDocuments(databaseId, process.env.APPWRITE_EVENTS_COLLECTION_ID as string);
+    const res = await databases.listDocuments(databaseId!, process.env.APPWRITE_EVENTS_COLLECTION_ID as string);
 
     return res.documents.map((doc: any) => {
       const fromArray = (doc.imageUrls as string[] | undefined)?.filter(Boolean) ?? [];
@@ -156,7 +156,7 @@ export async function getCertificatesFromDb(): Promise<{ id: string; name: strin
   const { databases } = createServerClient();
 
   try {
-    const res = await databases.listDocuments(databaseId, process.env.APPWRITE_CERTIFICATES_COLLECTION_ID as string);
+    const res = await databases.listDocuments(databaseId!, process.env.APPWRITE_CERTIFICATES_COLLECTION_ID as string);
 
     return res.documents.map((doc: any) => {
       const raw = (doc.imageUrl as string | undefined) ?? (doc.imageFileId as string | undefined);

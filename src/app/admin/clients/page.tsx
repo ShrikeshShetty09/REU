@@ -26,7 +26,7 @@ export default function AdminClientsPage() {
     if (!databaseId || !collectionId) return;
     async function load() {
       try {
-        const res = await databases.listDocuments(databaseId, collectionId);
+        const res = await databases.listDocuments(databaseId!, collectionId!);
         setItems(res.documents as any);
       } catch (err: any) {
         console.error(err);
@@ -52,7 +52,7 @@ export default function AdminClientsPage() {
         logoFileId = `${endpoint}/storage/buckets/${bucketId}/files/${uploaded.$id}/view?project=${projectId}`;
       }
 
-      const created = await databases.createDocument(databaseId, collectionId, ID.unique(), {
+      const created = await databases.createDocument(databaseId!, collectionId!, ID.unique(), {
         name,
         logoFileId,
       });
@@ -72,7 +72,7 @@ export default function AdminClientsPage() {
     if (!databaseId || !collectionId) return;
     if (!confirm("Delete this client?")) return;
     try {
-      await databases.deleteDocument(databaseId, collectionId, id);
+      await databases.deleteDocument(databaseId!, collectionId!, id);
       setItems((prev) => prev.filter((item) => item.$id !== id));
     } catch (err) {
       console.error(err);
