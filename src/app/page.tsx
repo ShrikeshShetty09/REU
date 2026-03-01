@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { companyColumns, detailContent, industriesWeServe } from "@/data/siteContent";
 import { HeroSection } from "@/components/HeroSection";
+import { getClientsFromDb } from "@/lib/appwrite";
 
 const productTableRows = [
   { left: "Pressure Reducing Systems", right: "High Pressure Regulators" },
@@ -32,8 +33,8 @@ const customServices = [
   },
 ];
 
-// Four flagship clients for the homepage strip (taken from the main clients grid)
-const homepageClients = [
+// Fallback flagship clients for the homepage strip if Appwrite has no client records
+const homepageClientsFallback = [
   {
     name: "Amptronics Techno Pvt. Ltd.",
     logo: "/images/client_logo/Amprotnics_Techno_Pvt_Ltd.png",
@@ -54,7 +55,12 @@ const homepageClients = [
 
 const leadershipDetail = detailContent["leadership-team"];
 
-export default function Home() {
+export default async function Home() {
+  const clientsFromDb = await getClientsFromDb();
+  const homepageClients = (clientsFromDb.length > 0
+    ? clientsFromDb.map((c) => ({ name: c.name, logo: c.logoUrl }))
+    : homepageClientsFallback
+  ).slice(0, 4);
   return (
     <main className="pb-24 pt-0 text-[#230124]">
       {/* Hero */}
