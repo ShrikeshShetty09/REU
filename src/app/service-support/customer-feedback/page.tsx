@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { databases, ID } from "@/lib/appwriteBrowser";
 
 const feedbackTypes = [
   {
@@ -47,9 +48,46 @@ export default function CustomerFeedbackPage() {
     suggestions: "",
   });
 
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const databaseId = process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID as string | undefined;
+  const collectionId = process.env.NEXT_PUBLIC_APPWRITE_FEEDBACK_COLLECTION_ID as string | undefined;
+
   const handleRating = (question: string, rating: number) => {
     setRatings({ ...ratings, [question]: rating });
   };
+
+  async function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+    if (!databaseId || !collectionId) {
+      setError("Form storage is not configured.");
+      return;
+    }
+    setError(null);
+    setSubmitting(true);
+    try {
+      await databases.createDocument(databaseId, collectionId, ID.unique(), {
+        name: formData.name,
+        email: formData.email,
+        company: formData.company,
+        feedback: formData.feedback,
+        suggestions: formData.suggestions,
+        type: selectedType,
+        ratingsJson: JSON.stringify(ratings),
+      });
+      setSubmitted(true);
+      setFormData({ name: "", email: "", company: "", feedback: "", suggestions: "" });
+      setRatings({});
+      setSelectedType(null);
+    } catch (err: any) {
+      console.error(err);
+      setError("Failed to submit feedback. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
@@ -126,8 +164,8 @@ export default function CustomerFeedbackPage() {
           >
             <div className="bg-white rounded-3xl shadow-xl p-8">
               <h2 className="text-3xl font-bold text-gray-800 mb-6">Share Your Experience</h2>
-              
-              <form className="space-y-6">
+
+              <form className="space-y-6" onSubmit={handleSubmit}>
                 {/* Personal Information */}
                 <div className="grid md:grid-cols-2 gap-6">
                   <motion.div
@@ -241,10 +279,17 @@ export default function CustomerFeedbackPage() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   type="submit"
-                  className="w-full py-4 bg-gradient-to-r from-green-600 to-blue-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all"
+                  disabled={submitting}
+                  className="w-full py-4 bg-gradient-to-r from-green-600 to-blue-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all disabled:opacity-60"
                 >
-                  Submit Feedback
+                  {submitting ? "Submitting\u2026" : submitted ? "Submitted" : "Submit Feedback"}
                 </motion.button>
+                {error && <p className="text-xs text-red-600">{error}</p>}
+                {!error && submitted && (
+                  <p className="text-xs text-green-600">
+                    Thank you for your feedback. We have received your response and will use it to improve our services.
+                  </p>
+                )}
               </form>
             </div>
           </motion.div>

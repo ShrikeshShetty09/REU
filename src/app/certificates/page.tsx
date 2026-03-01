@@ -1,31 +1,9 @@
-import fs from "fs";
-import path from "path";
 import { CertificatesGallery } from "@/components/CertificatesGallery";
+import { getCertificatesFromDb } from "@/lib/appwrite";
 
-type CertificateItem = {
-  name: string;
-  href: string;
-};
-
-function getCertificates(): CertificateItem[] {
-  try {
-    const dir = path.join(process.cwd(), "public", "certificate");
-    const entries = fs.readdirSync(dir, { withFileTypes: true });
-    return entries
-      .filter((entry) => entry.isFile())
-      // Use only image certificates (including pan.png, gst.png, etc.)
-      .filter((entry) => /\.(png|jpe?g|webp|gif|bmp|svg)$/i.test(entry.name))
-      .map((entry) => ({
-        name: entry.name,
-        href: `/certificate/${entry.name}`,
-      }));
-  } catch {
-    return [];
-  }
-}
-
-export default function CertificatesPage() {
-  const certificates = getCertificates();
+export default async function CertificatesPage() {
+  const docs = await getCertificatesFromDb();
+  const certificates = docs.map((doc) => ({ name: doc.name, href: doc.imageUrl }));
 
   return (
     <main className="space-y-10 pb-20 pt-16">

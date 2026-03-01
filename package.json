@@ -9,8 +9,10 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "appwrite": "^22.4.1",
     "framer-motion": "^12.33.0",
     "next": "16.1.6",
+    "node-appwrite": "^22.1.2",
     "react": "19.2.3",
     "react-dom": "19.2.3"
   },

@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { databases, ID } from "@/lib/appwriteBrowser";
 
 const allProducts = [
   "Pressure Reducing Systems",
@@ -66,6 +67,39 @@ export default function ProductEnquiryPage() {
     product: "",
     message: "",
   });
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const databaseId = process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID as string | undefined;
+  const collectionId = process.env.NEXT_PUBLIC_APPWRITE_ENQUIRY_COLLECTION_ID as string | undefined;
+
+  async function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+    if (!databaseId || !collectionId) {
+      setError("Form storage is not configured.");
+      return;
+    }
+    setError(null);
+    setSubmitting(true);
+    try {
+      await databases.createDocument(databaseId, collectionId, ID.unique(), {
+        name: formData.name,
+        company: formData.company,
+        email: formData.email,
+        phone: formData.phone,
+        product: formData.product,
+        message: formData.message,
+      });
+      setSubmitted(true);
+      setFormData({ name: "", company: "", email: "", phone: "", product: "", message: "" });
+    } catch (err: any) {
+      console.error(err);
+      setError("Failed to submit enquiry. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50">
@@ -156,8 +190,8 @@ export default function ProductEnquiryPage() {
           >
             <div className="bg-white rounded-3xl shadow-xl p-8">
               <h2 className="text-3xl font-bold text-gray-800 mb-6">Send Your Enquiry</h2>
-              
-              <form className="space-y-6">
+
+              <form className="space-y-6" onSubmit={handleSubmit}>
                 <div className="grid md:grid-cols-2 gap-6">
                   <motion.div
                     whileFocus={{ scale: 1.02 }}
@@ -255,10 +289,17 @@ export default function ProductEnquiryPage() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   type="submit"
-                  className="w-full py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all"
+                  disabled={submitting}
+                  className="w-full py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all disabled:opacity-60"
                 >
-                  Submit Enquiry
+                  {submitting ? "Submitting…" : submitted ? "Submitted" : "Submit Enquiry"}
                 </motion.button>
+                {error && <p className="text-xs text-red-600">{error}</p>}
+                {!error && submitted && (
+                  <p className="text-xs text-green-600">
+                    Thank you! Your product enquiry has been submitted successfully. Our team will contact you shortly.
+                  </p>
+                )}
               </form>
 
               {/* Quick Contact */}
