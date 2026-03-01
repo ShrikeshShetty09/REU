@@ -361,7 +361,7 @@ export const HeroSection = ({ customServices }: HeroSectionProps) => {
         <div className="flex w-full flex-col gap-4 md:w-1/2">
           <div className="relative h-52 w-full overflow-hidden rounded-[24px] border border-white/40 bg-white/10 shadow-md sm:h-60 md:h-72">
             <Image
-              src="/images/expo_images/chemtch_expo_Mumbai1.jpeg"
+              src="/images/expo_images/chemtch_expo_Mumbai1.jpg"
               alt="Chemtch Expo Mumbai"
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
