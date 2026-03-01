@@ -38,43 +38,42 @@ export default function AdminServiceRequestsPage() {
         {items.length === 0 ? (
           <p className="text-xs text-slate-500">No service requests yet.</p>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="min-w-full text-left text-xs">
-              <thead className="border-b bg-slate-50 text-[11px] font-semibold text-slate-600">
+          <div className="max-w-full">
+            <table className="w-full table-fixed text-left text-[11px]">
+              <thead className="border-b bg-slate-50 text-[10px] font-semibold text-slate-600">
                 <tr>
                   <th className="px-2 py-1.5">Name</th>
                   <th className="px-2 py-1.5">Email</th>
                   <th className="px-2 py-1.5">Phone</th>
                   <th className="px-2 py-1.5">Company</th>
-                  <th className="px-2 py-1.5">Service Type</th>
-                  <th className="px-2 py-1.5">Equipment / Service</th>
+                  {/* Secondary columns hidden on very small screens to give Issue Description space */}
+                  <th className="hidden px-2 py-1.5 md:table-cell">Service Type</th>
+                  <th className="hidden px-2 py-1.5 md:table-cell">Equipment / Service</th>
                   <th className="px-2 py-1.5">Issue Description</th>
-                  <th className="px-2 py-1.5">Preferred Date</th>
-                  <th className="px-2 py-1.5">Preferred Time</th>
-                  <th className="px-2 py-1.5">Service Location</th>
-                  <th className="px-2 py-1.5">Urgency</th>
+                  <th className="hidden px-2 py-1.5 lg:table-cell">Preferred Date</th>
+                  <th className="hidden px-2 py-1.5 lg:table-cell">Preferred Time</th>
+                  <th className="hidden px-2 py-1.5 lg:table-cell">Service Location</th>
+                  <th className="hidden px-2 py-1.5 lg:table-cell">Urgency</th>
                   <th className="px-2 py-1.5">Submitted</th>
                 </tr>
               </thead>
               <tbody className="divide-y">
                 {items.map((item) => (
                   <tr key={item.$id} className="align-top">
-                    <td className="px-2 py-1.5">{item.name ?? "-"}</td>
-                    <td className="px-2 py-1.5">{item.email ?? "-"}</td>
-                    <td className="px-2 py-1.5">{item.phone ?? "-"}</td>
-                    <td className="px-2 py-1.5">{item.company ?? "-"}</td>
-                    <td className="px-2 py-1.5">{item.serviceType ?? "-"}</td>
-                    <td className="px-2 py-1.5">{item.equipment ?? "-"}</td>
-                    <td
-                      className="max-w-xs px-2 py-1.5 text-[11px] text-slate-600 whitespace-pre-wrap break-words"
-                    >
+                    <td className="px-2 py-1.5 break-words">{item.name ?? "-"}</td>
+                    <td className="px-2 py-1.5 break-words">{item.email ?? "-"}</td>
+                    <td className="px-2 py-1.5 break-words">{item.phone ?? "-"}</td>
+                    <td className="px-2 py-1.5 break-words">{item.company ?? "-"}</td>
+                    <td className="hidden px-2 py-1.5 break-words md:table-cell">{item.serviceType ?? "-"}</td>
+                    <td className="hidden px-2 py-1.5 break-words md:table-cell">{item.equipment ?? "-"}</td>
+                    <td className="max-w-xs px-2 py-1.5 align-top text-[10px] text-slate-600 break-words">
                       {item.issueDescription ?? "-"}
                     </td>
-                    <td className="px-2 py-1.5">{item.preferredDate ?? "-"}</td>
-                    <td className="px-2 py-1.5">{item.preferredTime ?? "-"}</td>
-                    <td className="px-2 py-1.5">{item.address ?? "-"}</td>
-                    <td className="px-2 py-1.5">{item.urgency ?? "-"}</td>
-                    <td className="px-2 py-1.5 text-[11px] text-slate-500">
+                    <td className="hidden px-2 py-1.5 break-words lg:table-cell">{item.preferredDate ?? "-"}</td>
+                    <td className="hidden px-2 py-1.5 break-words lg:table-cell">{item.preferredTime ?? "-"}</td>
+                    <td className="hidden px-2 py-1.5 break-words lg:table-cell">{item.address ?? "-"}</td>
+                    <td className="hidden px-2 py-1.5 break-words lg:table-cell">{item.urgency ?? "-"}</td>
+                    <td className="px-2 py-1.5 text-[10px] text-slate-500">
                       {new Date(item.$createdAt).toLocaleString()}
                     </td>
                   </tr>

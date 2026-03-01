@@ -38,9 +38,9 @@ export default function AdminEnquiryPage() {
         {items.length === 0 ? (
           <p className="text-xs text-slate-500">No enquiries yet.</p>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="min-w-full text-left text-xs">
-              <thead className="border-b bg-slate-50 text-[11px] font-semibold text-slate-600">
+          <div className="max-w-full">
+            <table className="w-full table-fixed text-left text-[11px]">
+              <thead className="border-b bg-slate-50 text-[10px] font-semibold text-slate-600">
                 <tr>
                   <th className="px-2 py-1.5">Name</th>
                   <th className="px-2 py-1.5">Email</th>
@@ -53,14 +53,14 @@ export default function AdminEnquiryPage() {
               <tbody className="divide-y">
                 {items.map((item) => (
                   <tr key={item.$id} className="align-top">
-                    <td className="px-2 py-1.5">{item.name ?? "-"}</td>
-                    <td className="px-2 py-1.5">{item.email ?? "-"}</td>
-                    <td className="px-2 py-1.5">{item.company ?? "-"}</td>
-                    <td className="px-2 py-1.5">{item.product ?? item.productName ?? "-"}</td>
-                    <td className="max-w-xs px-2 py-1.5 text-[11px] text-slate-600">
+                    <td className="px-2 py-1.5 break-words">{item.name ?? "-"}</td>
+                    <td className="px-2 py-1.5 break-words">{item.email ?? "-"}</td>
+                    <td className="px-2 py-1.5 break-words">{item.company ?? "-"}</td>
+                    <td className="px-2 py-1.5 break-words">{item.product ?? item.productName ?? "-"}</td>
+                    <td className="max-w-xs px-2 py-1.5 text-[10px] text-slate-600 break-words">
                       {item.message ?? item.notes ?? "-"}
                     </td>
-                    <td className="px-2 py-1.5 text-[11px] text-slate-500">
+                    <td className="px-2 py-1.5 text-[10px] text-slate-500">
                       {new Date(item.$createdAt).toLocaleString()}
                     </td>
                   </tr>

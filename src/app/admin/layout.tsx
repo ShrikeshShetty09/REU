@@ -63,7 +63,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
   }
 
   return (
-    <div className="flex min-h-screen bg-[radial-gradient(circle_at_top,_#ffe5ff,_#f6e0ff,_#f7f0fb)]">
+    <div className="flex min-h-screen w-full overflow-x-hidden bg-[radial-gradient(circle_at_top,_#ffe5ff,_#f6e0ff,_#f7f0fb)]">
       {/* Desktop sidebar */}
       <aside className="hidden w-64 flex-col border-r border-white/60 bg-white/95 px-5 py-6 text-sm text-slate-700 shadow-sm md:flex">
         <div className="mb-6 flex items-center gap-3">
