@@ -71,7 +71,7 @@ export default function ContactPage() {
               <div>
                 <p className="text-xs uppercase tracking-[0.4em] text-[#a605c7] font-semibold">Address</p>
                 <p className="text-base text-[#360236]">
-                  Corporate Address : Shop No 1, Plot No 85, sec-R1, Near MSEB Office, Vadghar, Karanjade, Panvel c 410206
+                  Corporate Address : Shop No 1, Plot No 85, sec-R1, Near MSEB Office, Vadghar, Karanjade, Panvel - 410206
                 </p>
               </div>
             </div>

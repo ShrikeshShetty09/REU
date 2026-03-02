@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useMemo, useState } from "react";
-import { navItems, type NavItem, type MenuColumn } from "@/data/siteContent";
+import { navItems, type NavItem, type MenuColumn, allDetails } from "@/data/siteContent";
 
 const brandInitials = "REU";
 
@@ -129,36 +129,73 @@ export const NavBar = () => {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [searchResults, setSearchResults] = useState<{ title: string; href: string; type?: string }[]>([]);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openMobileSection, setOpenMobileSection] = useState<string | null>(null);
 
   const handleSearch = async (query: string) => {
     setSearchQuery(query);
-    
-    if (query.trim() === "") {
+
+    const trimmed = query.trim();
+    if (!trimmed) {
       setSearchResults([]);
       return;
     }
 
-    // Simple search implementation - you can enhance this with actual search logic
-    try {
-      // This is a placeholder - implement actual search based on your needs
-      const mockResults = [
-        { title: "Pressure Reducing Systems", href: "/products/upstream-pressure-control-valve" },
-        { title: "Gas Detection System", href: "/products/gas-detection-system" },
-        { title: "Safety Valves", href: "/products/safety-valves" },
-        { title: "Service & Support", href: "/service-support" },
-        { title: "About Us", href: "/company/about-us" },
-        { title: "Contact", href: "/contact" },
-      ].filter(item => 
-        item.title.toLowerCase().includes(query.toLowerCase())
-      );
+    const qLower = trimmed.toLowerCase();
 
-      setSearchResults(mockResults);
+    // Local static search: products, solutions, company pages and main nav destinations
+    const staticResults: { title: string; href: string; type?: string }[] = [];
+
+    // Search detail cards (products / solutions / company pages)
+    allDetails
+      .filter((item) =>
+        item.label.toLowerCase().includes(qLower) ||
+        item.description.toLowerCase().includes(qLower) ||
+        item.summary.toLowerCase().includes(qLower)
+      )
+      .forEach((item) => {
+        let href = "/";
+        if (item.category === "product") href = `/products/${item.slug}`;
+        else if (item.category === "solution") href = `/solutions/${item.slug}`;
+        else if (item.category === "company") href = `/company/${item.slug}`;
+
+        staticResults.push({ title: item.label, href, type: item.category });
+      });
+
+    // Search top-level nav items (like Certificates, Clients, Contact, etc.)
+    navItems
+      .filter((item) => "href" in item && item.href && item.label.toLowerCase().includes(qLower))
+      .forEach((item) => {
+        if ("href" in item && item.href) {
+          staticResults.push({ title: item.label, href: item.href, type: "Page" });
+        }
+      });
+
+    try {
+      const response = await fetch(`/api/search?q=${encodeURIComponent(trimmed)}`);
+      if (!response.ok) {
+        setSearchResults(staticResults);
+        return;
+      }
+
+      const data: { results?: { title: string; href: string; type?: string }[] } = await response.json();
+
+      const dynamicResults = data.results ?? [];
+
+      // Merge and de-duplicate by href + title
+      const combinedMap = new Map<string, { title: string; href: string; type?: string }>();
+      [...staticResults, ...dynamicResults].forEach((item) => {
+        const key = `${item.href}-${item.title}`;
+        if (!combinedMap.has(key)) {
+          combinedMap.set(key, item);
+        }
+      });
+
+      setSearchResults(Array.from(combinedMap.values()));
     } catch (error) {
       console.error("Search error:", error);
-      setSearchResults([]);
+      setSearchResults(staticResults);
     }
   };
 
@@ -320,6 +357,9 @@ export const NavBar = () => {
                           className="block px-3 py-2 hover:bg-gray-100 rounded-md transition-colors"
                         >
                           <p className="text-sm font-medium text-gray-900">{result.title}</p>
+                          {result.type && (
+                            <p className="text-xs text-gray-500 mt-0.5">{result.type}</p>
+                          )}
                         </Link>
                       ))}
                     </div>
