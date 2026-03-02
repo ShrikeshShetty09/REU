@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useMemo, useState } from "react";
-import { navItems, type NavItem } from "@/data/siteContent";
+import { navItems, type NavItem, type MenuColumn } from "@/data/siteContent";
 
 const brandInitials = "REU";
 
@@ -30,6 +30,47 @@ const isMenuNavItem = (item: NavItem): item is MenuNavItem =>
 
 const MegaMenu = ({ item }: { item: MenuNavItem }) => {
   if (item.menuType === "columns") {
+    // Special layout for PRODUCTS: pair columns under a single centered heading
+    if (item.label === "PRODUCTS") {
+      const groups: MenuColumn[][] = [];
+      for (let i = 0; i < item.columns.length; i += 2) {
+        groups.push(item.columns.slice(i, i + 2));
+      }
+
+      return (
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-2">
+          {groups.map((group, groupIndex) => (
+            <div key={`products-group-${groupIndex}`} className="space-y-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.35em] text-center text-foreground/60">
+                {group[0]?.heading}
+              </p>
+              <div className="grid gap-6 md:grid-cols-2">
+                {group.map((column, colIndex) => (
+                  <div
+                    key={`products-col-${groupIndex}-${colIndex}-${column.heading}`}
+                    className="space-y-2 text-sm"
+                  >
+                    {column.links.map((link: (typeof column.links)[number]) => (
+                      <Link
+                        key={`${column.heading}-${link.label}-${link.href}`}
+                        href={link.href}
+                        className="block rounded-xl border border-transparent px-3 py-2 transition hover:border-white/40 hover:bg-white/10"
+                      >
+                        <p className="font-semibold text-[#5d075f]">{link.label}</p>
+                        {link.description && (
+                          <p className="text-xs text-foreground/70">{link.description}</p>
+                        )}
+                      </Link>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      );
+    }
+
     return (
       <div className="grid gap-6 md:grid-cols-3 lg:grid-cols-4">
         {item.columns.map((column) => (

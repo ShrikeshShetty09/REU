@@ -221,7 +221,7 @@ export default async function Home() {
           <div className="mt-6 space-y-3 text-base font-semibold text-[#5d075f]">
             <p>☎ +91 99870 92470 / +91 90223 65220</p>
             <p>✉ rahulukey@reu.co.in</p>
-            <p>Corporate Address : Shop No 1, Plot No 85, sec-R1, Near MSEB Office, Vadghar, Karanjade, Panvel – 410206</p>
+            <p>Corporate Address : Shop No 1, Plot No 85, sec-R1, Near MSEB Office, Vadghar, Karanjade, Panvel - 410206</p>
           </div>
         </div>
         <form className="rounded-[32px] border border-[#f3d7ff] bg-gradient-to-br from-[#ffeffd] to-[#fff9ff] p-8 shadow-xl space-y-5">

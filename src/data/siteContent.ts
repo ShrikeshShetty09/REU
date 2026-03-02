@@ -568,29 +568,33 @@ export const getDetailBySlug = (slug: string) => detailContent[slug];
 export const getRelatedByCategory = (category: DetailItem["category"], excludeSlug?: string) =>
   allDetails.filter((item) => item.category === category && item.slug !== excludeSlug);
 
-const primaryProductData = productData.filter(
-  (item) => item.slug !== "hsd-daq-modules" && item.slug !== "hsd-linear-heat-sensor-cables"
-);
+const primaryProductData = productData
+  .filter((item) => item.slug !== "hsd-daq-modules" && item.slug !== "hsd-linear-heat-sensor-cables")
+  .sort((a, b) => a.label.localeCompare(b.label));
 
-const firstColumnProducts = primaryProductData.slice(0, 8);
-const secondColumnProducts = primaryProductData.slice(8);
-
-export const productColumns: MenuColumn[] = [
-  {
-    heading: "Product List (A-M)",
-    links: firstColumnProducts.map(({ label, slug }) => ({
-      label,
-      href: toHref("products", slug),
-    })),
-  },
-  {
-    heading: "Product List (N-Z)",
-    links: secondColumnProducts.map(({ label, slug }) => ({
-      label,
-      href: toHref("products", slug),
-    })),
-  },
-];
+// Build navbar columns: A–Z, 4 products per column
+export const productColumns: MenuColumn[] = (() => {
+  const columns: MenuColumn[] = [];
+  for (let i = 0; i < primaryProductData.length; i += 4) {
+    const slice = primaryProductData.slice(i, i + 4);
+    const groupIndex = Math.floor(i / 8); // each group is 2 columns (8 products)
+    const groupStart = groupIndex * 8;
+    const groupEnd = Math.min(groupStart + 7, primaryProductData.length - 1);
+    const firstLabel = primaryProductData[groupStart]?.label ?? slice[0]?.label ?? "";
+    const lastLabel = primaryProductData[groupEnd]?.label ?? slice[slice.length - 1]?.label ?? "";
+    const firstChar = firstLabel.charAt(0).toUpperCase();
+    const lastChar = lastLabel.charAt(0).toUpperCase();
+    const heading = firstChar && lastChar ? `${firstChar} - ${lastChar}` : "Products";
+    columns.push({
+      heading,
+      links: slice.map(({ label, slug }) => ({
+        label,
+        href: toHref("products", slug),
+      })),
+    });
+  }
+  return columns;
+})();
 
 export const solutionCardsMenu: CardMenuItem[] = solutionCards.map((solution) => ({
   label: solution.label,
@@ -626,7 +630,7 @@ export const serviceSupportColumns: MenuColumn[] = [
   {
     heading: "Service",
     links: [
-      { label: "Compressor & Supply", href: "/service-support#services" },
+      { label: "Compressor Service, Supply and Spares", href: "/service-support#services" },
       { label: "Gas Detection System", href: "/service-support#services" },
     ],
   },
