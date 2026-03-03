@@ -617,7 +617,7 @@ export const companyColumns: MenuColumn[] = [
   {
     heading: "Resources",
     links: [
-      { label: "Our Catalogue", href: "/reu_catalogue/REU%20catlogue.pdf" },
+      { label: "Our Catalogue", href: "/reu_new_catalogue/reu_catalogue.pdf" },
     ],
   },
   {

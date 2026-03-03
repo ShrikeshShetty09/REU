@@ -12,7 +12,7 @@ const quickLinks = [
 
 const resources = [
   { label: "Quality Assurance", href: "/company/quality-assurance" },
-  { label: "Technical Articles", href: "/company/technical-articles" },
+  { label: "Our Catalogue", href: "/reu_new_catalogue/reu_catalogue.pdf" },
   { label: "Events", href: "/company/events" },
 ];
 
