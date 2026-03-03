@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { navItems, type NavItem, type MenuColumn, allDetails } from "@/data/siteContent";
 
 const brandInitials = "REU";
@@ -132,6 +132,14 @@ export const NavBar = () => {
   const [searchResults, setSearchResults] = useState<{ title: string; href: string; type?: string }[]>([]);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openMobileSection, setOpenMobileSection] = useState<string | null>(null);
+
+  // Close all menus when pathname changes
+  useEffect(() => {
+    setActiveMenu(null);
+    setIsMobileMenuOpen(false);
+    setOpenMobileSection(null);
+    setIsSearchOpen(false);
+  }, [pathname]);
 
   const handleSearch = async (query: string) => {
     setSearchQuery(query);

@@ -196,7 +196,7 @@ export default function ServiceSupportPage() {
             onClick={() => setActiveService(null)}
           >
             <div
-              className="relative w-full max-w-5xl max-h-[70vh] md:max-h-[60vh] overflow-y-auto rounded-[32px] border border-white/20 bg-black/80 p-6 text-white shadow-2xl max-md:[&::-webkit-scrollbar]:hidden max-md:scrollbar-hide"
+              className="relative w-full max-w-5xl h-[60vh] md:h-[50vh] overflow-y-auto rounded-[32px] border border-white/20 bg-black/80 p-6 text-white shadow-2xl max-md:[&::-webkit-scrollbar]:hidden max-md:scrollbar-hide"
               onClick={(e) => e.stopPropagation()}
             >
               <button
