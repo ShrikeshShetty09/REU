@@ -192,18 +192,16 @@ export default function ServiceSupportPage() {
 
         {activeService && (
           <div
-            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 px-4 backdrop-blur-sm"
+            className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/60 px-4 backdrop-blur-sm"
             onClick={() => setActiveService(null)}
           >
             <div
-              className={`relative w-full max-w-5xl max-h-[75vh] md:max-h-[60vh] overflow-y-auto rounded-[32px] border border-white/20 bg-black/80 p-6 text-white shadow-2xl max-md:[&::-webkit-scrollbar]:hidden max-md:scrollbar-hide ${
-                activeService === "gas-detection" ? "mt-10 md:mt-0" : "mt-8 md:mt-0"
-              }`}
+              className="relative w-full max-w-5xl max-h-[70vh] md:max-h-[60vh] overflow-y-auto rounded-[32px] border border-white/20 bg-black/80 p-6 text-white shadow-2xl max-md:[&::-webkit-scrollbar]:hidden max-md:scrollbar-hide"
               onClick={(e) => e.stopPropagation()}
             >
               <button
                 type="button"
-                className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-sm font-bold text-black shadow-lg"
+                className="absolute right-4 top-4 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-sm font-bold text-black shadow-lg"
                 onClick={() => setActiveService(null)}
                 aria-label="Close"
               >
