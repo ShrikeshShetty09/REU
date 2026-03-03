@@ -1,18 +1,21 @@
 import Image from "next/image";
 import Link from "next/link";
-import { companyColumns, detailContent, industriesWeServe } from "@/data/siteContent";
+import { companyColumns, detailContent, industriesWeServe, productData } from "@/data/siteContent";
 import { HeroSection } from "@/components/HeroSection";
 import { getClientsFromDb } from "@/lib/appwrite";
+import ContactForm from "@/components/ContactForm";
 
-const productTableRows = [
-  { left: "Pressure Reducing Systems", right: "High Pressure Regulators" },
-  { left: "High Pressure Cylinder Cascade", right: "Gas Detection System" },
-  { left: "Centrifugal Blanketing", right: "Gas Pipeline" },
-  { left: "Back Pressure Control Valve", right: "Gas purification gas control box & gas detector" },
-  { left: "Breather Valves & Flame Arresters", right: "Temperature Detection System" },
-  { left: "Safety Valves", right: "Mini Gas Station" },
-  { left: "Ball Valves & Non Return Valves etc.", right: "Utility & Lab Fume Hood Piping" },
-];
+const productTableRows = (() => {
+  const rows: { left: string; right: string }[] = [];
+  const products = [...productData];
+  for (let i = 0; i < products.length; i += 2) {
+    rows.push({
+      left: products[i]?.label ?? "",
+      right: products[i + 1]?.label ?? "",
+    });
+  }
+  return rows;
+})();
 
 const customServices = [
   {
@@ -123,8 +126,12 @@ export default async function Home() {
               <div className="grid divide-y divide-[#f1dafc] text-sm font-semibold md:grid-cols-2 md:divide-x md:divide-y-0">
                 {productTableRows.map((row) => (
                   <div key={`${row.left}-${row.right}`} className="flex flex-col gap-2 px-6 py-5">
-                    <p>{row.left}</p>
-                    <p className="text-[#7a028e]">{row.right}</p>
+                    <Link href={`/products/${productData.find(p => p.label === row.left)?.slug ?? ''}`} className="hover:underline">
+                      {row.left}
+                    </Link>
+                    <Link href={`/products/${productData.find(p => p.label === row.right)?.slug ?? ''}`} className="hover:underline">
+                      {row.right}
+                    </Link>
                   </div>
                 ))}
               </div>
@@ -224,33 +231,7 @@ export default async function Home() {
             <p>Corporate Address : Shop No 1, Plot No 85, sec-R1, Near MSEB Office, Vadghar, Karanjade, Panvel - 410206</p>
           </div>
         </div>
-        <form className="rounded-[32px] border border-[#f3d7ff] bg-gradient-to-br from-[#ffeffd] to-[#fff9ff] p-8 shadow-xl space-y-5">
-          <div>
-            <label className="text-sm font-semibold text-[#5d075f]">Name</label>
-            <input
-              className="mt-2 w-full rounded-2xl border border-[#e3b7ff] px-4 py-3 focus:border-[#a605c7] focus:outline-none"
-              placeholder="Full name"
-            />
-          </div>
-          <div>
-            <label className="text-sm font-semibold text-[#5d075f]">Company</label>
-            <input
-              className="mt-2 w-full rounded-2xl border border-[#e3b7ff] px-4 py-3 focus:border-[#a605c7] focus:outline-none"
-              placeholder="Organisation"
-            />
-          </div>
-          <div>
-            <label className="text-sm font-semibold text-[#5d075f]">Requirement</label>
-            <textarea
-              className="mt-2 w-full rounded-2xl border border-[#e3b7ff] px-4 py-3 focus:border-[#a605c7] focus:outline-none"
-              rows={4}
-              placeholder="Tell us about your gas or automation project"
-            />
-          </div>
-          <button className="w-full rounded-full bg-[#a605c7] py-3 text-white font-semibold uppercase tracking-wide shadow-lg">
-            Submit Enquiry
-          </button>
-        </form>
+        <ContactForm />
       </section>
     </main>
   );

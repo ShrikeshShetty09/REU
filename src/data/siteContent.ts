@@ -22,7 +22,7 @@ export type CardMenuItem = {
 
 const toHref = (base: string, slug: string) => `/${base}/${slug}`;
 
-const productData: DetailItem[] = [
+export const productData: DetailItem[] = [
   {
     category: "product",
     label: "Pressure Reducing Systems",

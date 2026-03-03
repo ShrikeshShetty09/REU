@@ -71,7 +71,14 @@ export const Footer = () => {
         </div>
       </div>
       <div className="border-t border-white/20 px-6 py-6 text-center text-xs text-white/70">
-        © {new Date().getFullYear()} REU Engineering and LLP. All rights Reserved.
+        © {new Date().getFullYear()} REU Engineering and LLP. All rights Reserved. Developed by{" "}
+        <a href="https://revatech-ai.com/" target="_blank" rel="noopener noreferrer" className="hover:text-white underline">
+          Reva Technologies
+        </a>
+        {" - "}
+        <a href="https://revatech-ai.com/" target="_blank" rel="noopener noreferrer" className="hover:text-white underline">
+          https://revatech-ai.com/
+        </a>
       </div>
     </footer>
   );

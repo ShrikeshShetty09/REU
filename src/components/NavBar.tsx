@@ -378,6 +378,59 @@ export const NavBar = () => {
       {isMobileMenuOpen && (
         <div className="border-t border-white/60 bg-white/95 px-6 pb-4 pt-2 text-sm shadow-md md:hidden">
           <div className="mx-auto max-w-6xl space-y-3">
+            {/* Mobile search */}
+            <div className="relative">
+              <button
+                onClick={() => setIsSearchOpen(!isSearchOpen)}
+                className="flex h-8 w-8 items-center justify-center rounded-full border border-[#a605c7]/40 text-[#a605c7] transition hover:bg-[#a605c7] hover:text-white"
+              >
+                <span className="sr-only">Search</span>
+                <SearchIcon />
+              </button>
+
+              {/* Mobile search dropdown */}
+              {isSearchOpen && (
+                <div className="absolute left-0 top-full mt-2 w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                  <div className="p-4">
+                    <input
+                      type="text"
+                      value={searchQuery}
+                      onChange={(e) => handleSearch(e.target.value)}
+                      placeholder="Search entire website..."
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      autoFocus
+                    />
+
+                    {/* Search Results */}
+                    {searchResults.length > 0 && (
+                      <div className="mt-3 max-h-60 overflow-y-auto">
+                        <p className="text-xs font-semibold text-gray-600 mb-2">Search Results:</p>
+                        {searchResults.map((result, index) => (
+                          <Link
+                            key={index}
+                            href={result.href}
+                            className="block px-3 py-2 hover:bg-gray-100 rounded-md transition-colors"
+                            onClick={() => {
+                              setIsMobileMenuOpen(false);
+                              setIsSearchOpen(false);
+                            }}
+                          >
+                            <p className="text-sm font-medium text-gray-900">{result.title}</p>
+                            {result.type && (
+                              <p className="text-xs text-gray-500 mt-0.5">{result.type}</p>
+                            )}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+
+                    {searchQuery && searchResults.length === 0 && (
+                      <p className="mt-3 text-sm text-gray-500">No results found for "{searchQuery}"</p>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
             {navItems.map((item) => {
               const hasMenu = isMenuNavItem(item);
               const isActive = item.href ? pathname === item.href : false;
