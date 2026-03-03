@@ -218,7 +218,7 @@ export default function ServiceSupportPage() {
                     energy and reliability objectives.
                   </p>
                   <div className="grid gap-3 md:gap-4 md:grid-cols-2">
-                    {["/images/compressor/1-hp-110-liter-reciprocating-air-compressor.jpg","/images/compressor/7.5 HP.jpg","/images/compressor/SC-50.jpg","/images/compressor/TC300.jpg"].map((src) => (
+                    {["/images/compressor/1-hp-110-liter-reciprocating-air-compressor.jpg","/images/compressor/7.5 HP.jpg","/images/compressor/SC-50.png","/images/compressor/TC300.jpg"].map((src) => (
                       <div key={src} className="relative h-28 md:h-32 w-full overflow-hidden rounded-2xl bg-white/10">
                         <Image src={src} alt="Compressor" fill className="object-contain" sizes="(max-width:768px) 100vw, 50vw" />
                       </div>
