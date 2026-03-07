@@ -245,16 +245,17 @@ function NavLink({
   currentPath: string;
   onClick?: () => void;
 }) {
-  const active = currentPath === href;
+  const active = currentPath === href || (href !== "/admin" && currentPath.startsWith(href));
   return (
     <Link
       href={href}
       onClick={onClick}
       className={`block rounded-full px-3 py-2 text-xs font-medium transition ${
         active
-          ? "bg-gradient-to-r from-[#a605c7] to-[#5d075f] text-white shadow-sm"
+          ? "bg-gradient-to-r from-[#a605c7] to-[#5d075f] shadow-sm !text-white"
           : "text-slate-700 hover:bg-slate-100"
       }`}
+      style={active ? { color: 'white' } : undefined}
     >
       {label}
     </Link>
